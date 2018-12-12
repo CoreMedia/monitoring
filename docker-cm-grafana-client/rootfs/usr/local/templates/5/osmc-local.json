@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "canAdmin": true,
+    "createdBy": "admin",
+    "version": 1,
+    "folderUrl": "",
+    "canEdit": true,
+    "updated": "2018-02-10T09:56:54+01:00",
+    "canSave": true,
+    "folderTitle": "General",
+    "hasAcl": false,
+    "folderId": 0,
+    "expires": "0001-01-01T00:00:00Z",
+    "slug": "osmc-local",
+    "isFolder": true,
+    "canStar": true,
+    "created": "2018-02-10T09:56:54+01:00",
+    "type": "db",
+    "updatedBy": "admin",
+    "url": "/grafana/dashboards/f/CGHnSm3kk/osmc-local"
+  },
+  "dashboard": {
+    "schemaVersion": 16,
+    "id": null,
+    "uid": "CGHnSm3kk",
+    "panels": [],
+    "version": 1,
+    "title": "osmc.local",
+    "editable": true
+  }
+}

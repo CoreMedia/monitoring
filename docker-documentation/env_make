@@ -1,0 +1,6 @@
+PORTS = \
+  --publish 8080:8080
+
+VOLUMES =
+
+ENV =

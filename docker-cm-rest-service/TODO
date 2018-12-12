@@ -1,0 +1,63 @@
+
+current:
+
+host
+ - create
+ - destroy
+
+{ "command": "create" }
+{ "command": "destroy" }
+
+loadtest
+ - start
+ - stop
+
+{ "command": "loadtest", "argument": "start" }
+{ "command": "loadtest", "argument": "stop" }
+
+deployment
+
+{ "command": "deployment", "message": "version 7.1.50", "tags": ["7.1.50"] }
+
+
+a possible extension to the existing annotation API would be
+
+
+host
+ - create
+ - destroy
+
+{ "host": "create" }
+{ "host": "destroy" }
+
+
+monitoring
+ - add
+ - remove
+
+{ "monitoring": "add" }
+{ "monitoring": "remove" }
+
+
+deployment
+ - start
+ - end
+
+{ "deployment": "start", "message": "version 7.1.50", "tags": ["7.1.50"] }
+{ "deployment": "end"  , "message": "version 7.1.50", "tags": ["7.1.50"] }
+
+
+contentimport
+ - start
+ - end
+
+{ "contentimport": "start", "message": "version 7.1.50", "tags": ["7.1.50"] }
+{ "contentimport": "end"  , "message": "version 7.1.50", "tags": ["7.1.50"] }
+
+
+loadtest
+ - start
+ - end
+
+{ "loadtest": "start", "message": "version 7.1.50", "tags": ["7.1.50"] }
+{ "loadtest": "end"  , "message": "version 7.1.50", "tags": ["7.1.50"] }

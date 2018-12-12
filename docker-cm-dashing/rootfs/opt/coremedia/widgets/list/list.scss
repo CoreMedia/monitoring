@@ -1,0 +1,65 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$value-color:       #fff;
+$label-color:       rgba(255, 255, 255, 0.7);
+
+// ----------------------------------------------------------------------------
+// Widget-list styles
+// ----------------------------------------------------------------------------
+.widget-list {
+
+  .content { font-size: .9em; }
+
+  ol, ul {
+    text-align: left;
+    color: $value-color;
+  }
+
+  ol {
+    list-style-position: inside;
+  }
+
+  ol, ul div {
+    padding: 0 4px 2px 4px;
+    /*border-radius: 3px;*/
+  }
+
+  li {
+    margin-bottom: 3px;
+  }
+
+  .list-nostyle {
+    list-style: none;
+  }
+
+  .label {
+    color: $label-color;
+/*     font-size: 15px; */
+  }
+
+  .value {
+    float: right;
+    margin-left: 10px;
+    font-weight: 500;
+/*     font-size: 15px; */
+    color: $value-color;
+  }
+
+  .green {
+    background-color: #44bb77;
+/*     font-size: 15px; */
+  }
+  .yellow {
+    background-color: #ffaa44;
+/*     font-size: 15px; */
+  }
+  .red {
+    background-color: #ff5566;
+/*     font-size: 15px; */
+  }
+  .purple {
+    background-color: #aa44ff;
+/*     font-size: 15px; */
+  }
+}

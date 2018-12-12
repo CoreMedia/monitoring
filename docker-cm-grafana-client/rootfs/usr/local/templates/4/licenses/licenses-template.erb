@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "<%= slug %> - Licenses",
+    "originalTitle": "<%= slug %> - Licenses",
+    "tags": [ "<%= short_hostname %>", "licenses" ],
+    "style": "dark",
+    "timezone": "browser",
+    "editable": true,
+    "hideControls": false,
+    "sharedCrosshair": true,
+    "rows": [
+    ],
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timepicker": {
+      "now": true,
+      "refresh_intervals": [
+        "1m",
+        "2m"
+      ],
+      "time_options": [
+        "3m",
+        "5m",
+        "15m"
+      ]
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "value": "<%= graphite_identifier %>",
+            "text": "<%= graphite_identifier %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= graphite_identifier %>"
+            }
+          ],
+          "query": "<%= graphite_identifier %>",
+          "type": "constant"
+        }
+      ]
+    },
+    "annotations": {
+      "list": []
+    },
+    "refresh": "1m",
+    "schemaVersion": 12,
+    "version": 4,
+    "links": []
+  }
+}

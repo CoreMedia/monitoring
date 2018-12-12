@@ -1,0 +1,213 @@
+    {
+      "title": "License Until for <%= normalized_name %>",
+      "height": "80px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "text",
+          "isNew": true,
+          "id": 65,
+          "mode": "html",
+          "content": "<h3><center><%= normalized_name %></center</h3>",
+          "transparent": true
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "text",
+          "isNew": true,
+          "id": 67,
+          "mode": "html",
+          "content": "<center><h4>License Until\n\n<strong>Soft</strong></h4></center>",
+          "transparent": true
+        },
+        {
+          "title": "Days",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "isNew": true,
+          "id": 63,
+          "targets": [
+            {
+              "target": "carbon-writer.$host.<%= normalized_name %>.Server.license.until.soft.days",
+              "refId": "A"
+            }
+          ],
+          "thresholds": "20,10",
+          "links": [],
+          "datasource": "graphite",
+          "format": "none",
+          "mappingType": 1,
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "valueFontSize": "100%",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ]
+        },
+        {
+          "title": "Weeks",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "isNew": true,
+          "id": 63,
+          "targets": [
+            {
+              "target": "carbon-writer.$host.<%= normalized_name %>.Server.license.until.soft.weeks",
+              "refId": "A"
+            }
+          ],
+          "links": [],
+          "datasource": "graphite",
+          "format": "none",
+          "mappingType": 1,
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "valueFontSize": "100%",
+          "colorBackground": false,
+          "colorValue": false
+        },
+        {
+          "title": "Month",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "isNew": true,
+          "id": 62,
+          "targets": [
+            {
+              "target": "carbon-writer.$host.<%= normalized_name %>.Server.license.until.soft.month",
+              "refId": "A"
+            }
+          ],
+          "links": [],
+          "datasource": "graphite",
+          "format": "none",
+          "mappingType": 1,
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "valueFontSize": "100%",
+          "colorBackground": false,
+          "colorValue": false
+        },
+        {
+          "content": "",
+          "editable": true,
+          "error": false,
+          "id": 71,
+          "isNew": true,
+          "links": [],
+          "mode": "html",
+          "span": 2,
+          "title": "",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "text",
+          "isNew": true,
+          "id": 66,
+          "mode": "html",
+          "content": "<center><h4>License Until\n\n<strong>Hard</strong></h4></center>",
+          "transparent": true
+        },
+        {
+          "title": "Days",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "isNew": true,
+          "id": 63,
+          "targets": [
+            {
+              "target": "carbon-writer.$host.<%= normalized_name %>.Server.license.until.hard.days",
+              "refId": "A"
+            }
+          ],
+          "thresholds": "20,10",
+          "links": [],
+          "datasource": "graphite",
+          "format": "none",
+          "mappingType": 1,
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "valueFontSize": "100%",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ]
+        },
+        {
+          "title": "Weeks",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "isNew": true,
+          "id": 63,
+          "targets": [
+            {
+              "target": "carbon-writer.$host.<%= normalized_name %>.Server.license.until.hard.weeks",
+              "refId": "A"
+            }
+          ],
+          "links": [],
+          "datasource": "graphite",
+          "format": "none",
+          "mappingType": 1,
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "valueFontSize": "100%",
+          "colorBackground": false,
+          "colorValue": false
+        },
+        {
+          "title": "Month",
+          "error": false,
+          "span": 1,
+          "editable": true,
+          "type": "singlestat",
+          "isNew": true,
+          "id": 62,
+          "targets": [
+            {
+              "target": "carbon-writer.$host.<%= normalized_name %>.Server.license.until.hard.month",
+              "refId": "A"
+            }
+          ],
+          "links": [],
+          "datasource": "graphite",
+          "format": "none",
+          "mappingType": 1,
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "valueFontSize": "100%",
+          "colorBackground": false,
+          "colorValue": false
+        }
+      ]
+    }

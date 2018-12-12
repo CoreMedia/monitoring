@@ -1,0 +1,143 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+// $background-color:  #47bbb3;
+$value-color:       #fff;
+$label-color:       rgba(255, 255, 255, 0.7);
+
+$background-color-green:  #44bb77;
+$background-color-green-1:  lighten($background-color-green, 60%);
+$background-color-green-2:  darken($background-color-green, 30%);
+$value-color-green:       #fff;
+
+$background-color-red:  #ff5566;
+$background-color-red-1:  lighten($background-color-red, 60%);
+$background-color-red-2:  darken($background-color-red, 30%);
+$value-color-red:       #fff;
+
+$background-color-yellow:  #ffaa44;
+$background-color-yellow-1:  lighten($background-color-yellow, 60%);
+$background-color-yellow-2:  darken($background-color-yellow, 30%);
+$value-color-yellow:       #000;
+
+$background-color-purple:  #aa44ff;
+$background-color-purple-1:  #aa44ff;
+$background-color-purple-2:  #aa44ff;
+$value-color-purple:       #fff;
+
+$background-color-grey:  #999999;
+$value-color-grey:       #fff;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+@-webkit-keyframes icinga-yellow-background {
+    0%   { background-color: $background-color-yellow-1; }
+    50%  { background-color: $background-color-yellow-2; }
+    100% { background-color: $background-color-yellow-1; }
+}
+@-webkit-keyframes icinga-red-background {
+    0%   { background-color: $background-color-red-1; }
+    50%  { background-color: $background-color-red-2; }
+    100% { background-color: $background-color-red-1; }
+}
+@-webkit-keyframes icinga-green-background {
+    0%   { background-color: $background-color-green-1; }
+    50%  { background-color: $background-color-green-2; }
+    100% { background-color: $background-color-green-1; }
+}
+@-webkit-keyframes icinga-purple-background {
+    0%   { background-color: $background-color-purple-1; }
+    50%  { background-color: $background-color-purple-2; }
+    100% { background-color: $background-color-purple-1; }
+}
+@mixin animation($animation-name, $duration, $function, $animation-iteration-count:"infinite"){
+    -webkit-animation:  $animation-name $duration $function #{$animation-iteration-count};
+    -moz-animation:     $animation-name $duration $function #{$animation-iteration-count};
+    -ms-animation:      $animation-name $duration $function #{$animation-iteration-count};
+}
+
+
+// ----------------------------------------------------------------------------
+// Widget-number styles
+// ----------------------------------------------------------------------------
+.widget-icinga2 {
+
+  .content { font-size: .9em; }
+
+  ul.list-nostyle {
+    margin: 0px 2px 0 2px;
+    list-style: none;
+    text-align: left;
+  }
+  ul.list-nostyle li {
+    margin-bottom: 4px;
+  }
+
+  ul.list-nostyle div {
+    padding: 0 4px 2px 4px;
+    /*border-radius: 3px*/
+  }
+
+  ul.list-nostyle div.green {
+      background-color: $background-color-green;
+      .value { color: $value-color-green; }
+  }
+  ul.list-nostyle div.green-blink {
+      background-color: $background-color-green;
+      @include animation(icinga-green-background, 4s, ease);
+      .value { color: $value-color-green; }
+  }
+  ul.list-nostyle div.red {
+      background-color: $background-color-red;
+      .value { color: $value-color-red; }
+  }
+  ul.list-nostyle div.red-blink {
+      background-color: $background-color-red;
+      @include animation(icinga-red-background, 4s, ease);
+      .value { color: $value-color-red; }
+  }
+  ul.list-nostyle div.yellow {
+    background-color: $background-color-yellow;
+    .label { color: $value-color-yellow; }
+    .value { color: $value-color-yellow; }
+  }
+  ul.list-nostyle div.yellow-blink {
+      @include animation(icinga-yellow-background, 4s, ease);
+      background-color: $background-color-yellow;
+      .value { color: $value-color-yellow; }
+  }
+  ul.list-nostyle div.purple {
+      background-color: $background-color-purple;
+      .value { color: $value-color-purple; }
+  }
+  ul.list-nostyle div.purple-blink {
+      @include animation(icinga-purple-background, 4s, ease);
+      background-color: $background-color-purple;
+      .value { color: $value-color-purple; }
+  }
+  ul.list-nostyle div.grey {
+      background-color: $background-color-grey;
+      .value { color: $value-color-grey; }
+  }
+
+  .value {
+    float: right;
+    margin-left: 50px;
+    margin-top: 1px;
+    font-weight: 500;
+    color: $value-color;
+  }
+
+  .value .h:before {
+    content: "/ ";
+  }
+
+  /*.value .v, .value .h {
+    padding: 0 4px 0 4px;
+  }*/
+
+  .value .h {
+    display: none
+  }
+}

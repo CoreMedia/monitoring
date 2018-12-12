@@ -1,0 +1,355 @@
+---
+jolokia:
+  applications:
+    tomcat:
+      description: standard checks for all tomcats
+      metrics:
+      - description: Operating System
+        mbean: java.lang:type=OperatingSystem
+        attribute: OpenFileDescriptorCount, MaxFileDescriptorCount, SystemCpuLoad, CommittedVirtualMemorySize
+      - description: Heap Memory Usage
+        mbean: java.lang:type=Memory
+      - description: Thread Count
+        mbean: java.lang:type=Threading
+        attribute: TotalStartedThreadCount,ThreadCount,DaemonThreadCount,PeakThreadCount
+      - description: Tomcat Thread Pool
+        mbean: Catalina:type=Executor,name=tomcatThreadPool
+      - description: Class Loaded
+        mbean: java.lang:type=ClassLoading
+        attribute: LoadedClassCount,UnloadedClassCount,TotalLoadedClassCount
+      - description: GarbageCollector ParNew
+        mbean: java.lang:type=GarbageCollector,name=ParNew
+        attribute: CollectionTime,CollectionCount,LastGcInfo
+      - description: GarbageCollector ConcurrentMarkSweep
+        mbean: java.lang:type=GarbageCollector,name=ConcurrentMarkSweep
+        attribute: CollectionTime,CollectionCount,LastGcInfo
+      - description: information about the Runtime System
+        mbean: java.lang:type=Runtime
+        attribute: Uptime,StartTime
+      - name: Tomcat Manager
+        mbean: Catalina:type=Manager,context=/*,host=localhost
+        attribute: processingTime,expiredSessions,sessionCounter,maxInactiveInterval,sessionAverageAliveTime,rejectedSessions,processExpiresFrequency,duplicates,maxActiveSessions,sessionMaxAliveTime,sessionExpireRate,activeSessions,sessionCreateRate,maxActive
+      - description: Information about GC Old Gen (HEAP)
+        mbean: java.lang:type=MemoryPool,name=CMS Old Gen
+        attribute: Usage
+      - description: Information about GC Code Cache (NON HEAP)
+        mbean: java.lang:type=MemoryPool,name=Code Cache
+        attribute: Usage
+      - description: Information about GC Class Space (NON HEAP)
+        mbean: java.lang:type=MemoryPool,name=Compressed Class Space
+        attribute: Usage
+      - description: Information about GC Metaspace (NON HEAP)
+        mbean: java.lang:type=MemoryPool,name=Metaspace
+        attribute: Usage
+      - description: Information about GC Eden Space (HEAP)
+        mbean: java.lang:type=MemoryPool,name=Par Eden Space
+        attribute: Usage
+      - description: Information about GC Survivor Space (HEAP)
+        mbean: java.lang:type=MemoryPool,name=Par Survivor Space
+        attribute: Usage
+
+    contentserver:
+      description: All ContentServer (CMS, MLS, RLS)
+      metrics:
+      - description: Base Measurement Points for ALL Content Server
+        mbean: com.coremedia:application=*,type=Server
+        attribute: AppDesc,RunLevel,RunLevelNumeric,ResourceCacheHits,ResourceCacheEvicts,ResourceCacheEntries,ResourceCacheInterval,ResourceCacheSize,RepositorySequenceNumber,ConnectionCount,Uptime,ServiceInfos,LicenseValidFrom,LicenseValidUntilHard,LicenseValidUntilSoft,MasterLiveServerIORUrl
+      - description: Connection Pool for DBA Connections
+        mbean: com.coremedia:application=*,bean=ConnectionPool,type=Store
+        attribute: BusyConnections,OpenConnections,IdleConnections,MaxConnections,MinConnections
+      - description: Query Pool for DBA Connections
+        mbean: com.coremedia:application=*,bean=QueryPool,type=Store
+        attribute: IdleExecutors,RunningExecutors,WaitingQueries,MaxQueries
+      - description: Statistics about BlobStore
+        mbean: com.coremedia:application=*,type=Statistics,module=BlobStore,pool=BlobStoreMethods
+      - description: Statistics about Publisher
+        mbean: com.coremedia:application=*,type=Statistics,module=Publisher,pool=PublisherMethods
+      - description: Statistics about Repository
+        mbean: com.coremedia:application=*,type=Statistics,module=RepositoryStatistics,pool=Resource
+      - description: Statistics about ResourceCache
+        mbean: com.coremedia:application=*,type=Statistics,module=ResourceCacheStatistics,pool=ResourceCache
+      - description: Statistics about Store
+        mbean: com.coremedia:application=*,type=Statistics,module=Store,pool=StoreMethods
+      - description: Statistics pool StoreStatistics Job Execution
+        mbean: com.coremedia:application=*,type=Statistics,module=StoreStatistics,pool=Job Execution
+      - description: Statistics pool StoreStatistics Job Failed
+        mbean: com.coremedia:application=*,type=Statistics,module=StoreStatistics,pool=Job Failed
+      - description: Statistics pool StoreStatistics Job Latency
+        mbean: com.coremedia:application=*,type=Statistics,module=StoreStatistics,pool=Job Latency
+      - description: Statistics pool StoreStatistics Job Result
+        mbean: com.coremedia:application=*,type=Statistics,module=StoreStatistics,pool=Job Result
+      - description: Statistics pool StoreStatistics Job Successful
+        mbean: com.coremedia:application=*,type=Statistics,module=StoreStatistics,pool=Job Successful
+      - description: Statistics pool StoreStatistics Job Unrecoverable
+        mbean: com.coremedia:application=*,type=Statistics,module=StoreStatistics,pool=Job Unrecoverable
+      - description: Statistics about TextStore
+        mbean: com.coremedia:application=*,type=Statistics,module=TextStore,pool=TextStoreMethods
+
+    caches:
+      description: CAE or Studio Caches
+      metrics:
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="ALWAYS_STAY_IN_CACHE",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="DIGEST",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.blueprint.assets.contentbeans.AMAsset",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.blueprint.cae.layout.ContentBeanBackedPageGridPlacement",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.blueprint.cae.layout.PageGridImpl",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.blueprint.cae.search.solr.SolrQueryCacheKey",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.blueprint.common.contentbeans.Page",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cae.aspect.Aspect",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cap.disk",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cap.heap",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cap.unlimited",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.objectserver.dataviews.AssumesIdentity",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.objectserver.view.ViewLookup",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.transform.image.java2d.LoadedImageCacheKey",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="java.lang.Object",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+
+    caches-ecommerce:
+      description: "CAE or Studio Caches (eCommerce)"
+      metrics:
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Availability",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Category",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.CommerceUser",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Contract",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.ContractIdsByUser",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.ContractsByUser",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.DynamicPrice",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.MarketingSpot",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.MarketingSpots",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.PreviewToken",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Product",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.ProductsByCategory",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Segment",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Segments",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.SegmentsByUser",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.StaticPrice",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.StoreInfo",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.SubCategories",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.TopCategories",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.UserIsLoggedIn",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.ecommerce.cache.Workspaces",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+
+    caches-ecommerce-fragment:
+      description: "CAE Fragment Resolver (eCommerce)"
+      metrics:
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.livecontext.fragment.resolver.SearchTermExternalReferenceResolver",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+
+    caches-studio:
+      description: "Studio Caches"
+      metrics:
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="ALWAYS_STAY_IN_CACHE",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="DIGEST",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.blueprint.cae.search.solr.SolrQueryCacheKey",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cap.disk",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cap.heap",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.cap.unlimited",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="com.coremedia.transform.image.java2d.LoadedImageCacheKey",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+      - mbean: com.coremedia:type=Cache.Classes,CacheClass="java.lang.Object",application=*
+        attribute: Updated,Evaluated,Evicted,Removed,AverageEvaluationTime,Utilization,Capacity,Level,Inserted,MissRate
+
+    content-management-server:
+      description: Content Management Server - Publisher
+      metrics:
+#      - description: Publisher summary
+#        mbean: com.coremedia:type=Publisher,application=*
+      - description: Publisher target
+        mbean: com.coremedia:type=Publisher,target=*,application=*
+
+
+    master-live-server:
+      description: Master Live Server
+      metrics: []
+
+    replication-live-server:
+      description: Replication Live Server
+      metrics:
+      - description: Information about Replication between MLS and RLS
+        mbean: com.coremedia:type=Replicator,application=*
+        attribute: ConnectionUp,ControllerState,Enabled,PipelineUp,IncomingCount,CompletedCount,UncompletedCount,LatestCompletedSequenceNumber,LatestCompletedArrival,LatestCompletionDuration,LatestIncomingSequenceNumber,LatestIncomingArrival,LatestCompletedStampedNumber,LatestIncomingStampedNumber,MasterLiveServerIORUrl
+
+    workflow-server:
+      description: Workflow Server
+      metrics:
+      - description: CapConnection
+        name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open,WorkflowRepositoryAvailable
+
+    elastic-worker:
+      description: The Elastic Worker
+      metrics:
+      - description: CapConnection
+        name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open
+
+    user-changes:
+      description: The User Changes Webapp
+      metrics:
+      - description: CapConnection
+        name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open
+
+    content-feeder:
+      description: The Content Feeder
+      metrics:
+      - name: feeder
+        mbean: com.coremedia:type=Feeder,application=*
+        attribute: State,Uptime,CurrentPendingDocuments,IndexDocuments,IndexContentDocuments,IndexBytes,PersistedEvents,PendingEvents,PendingFolders
+      - name: AdminBackgroundFeed
+        mbean: com.coremedia:type=AdminBackgroundFeed,application=contentfeeder
+        attribute: NumberOfPendingContents
+      - name: AssetTaxonomyIdsBackgroundFeed
+        mbean: com.coremedia:type=AssetTaxonomyIdsBackgroundFeed,application=contentfeeder
+        attribute: CurrentPendingContents
+      - name: LocationTaxonomyIdsBackgroundFeed
+        mbean: com.coremedia:type=LocationTaxonomyIdsBackgroundFeed,application=contentfeeder
+        attribute: CurrentPendingContents
+      - name: SubjectTaxonomyIdsBackgroundFeed
+        mbean: com.coremedia:type=SubjectTaxonomyIdsBackgroundFeed,application=contentfeeder
+        attribute: CurrentPendingContents
+      - name: UpdateGroupsBackgroundFeed
+        mbean: com.coremedia:type=UpdateGroupsBackgroundFeed,application=contentfeeder
+        attribute: CurrentPendingContents
+      - name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open,ContentRepositoryAvailable,WorkflowRepositoryAvailable
+
+    caefeeder:
+      description: The CAE Feeder (Live and Preview)
+      metrics:
+      - description: ProactiveEngine management component
+        name: caefeeder
+        mbean: com.coremedia:type=ProactiveEngine,application=*
+        attribute: KeysCount,ValuesCount,InvalidationCount,SendSuccessTimeLatest,PurgeTimeLatest,HeartBeat,QueueCapacity,QueueMaxSize,QueueSize,QueueProcessedPerSecond
+      - description: ContentDependencyInvalidator
+        name: DependencyInvalidator
+        mbean: com.coremedia:type=ContentDependencyInvalidator,application=*
+      - description: Health management component
+        name: HealthStatus
+        mbean: com.coremedia:type=Health,application=*
+      - description: the management interface for the CapConnection to allow its configuration and profiling
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open,ContentRepositoryAvailable
+      - description: Provided statistics for the persistent blob cache
+        mbean: com.coremedia:type=TransformedBlobCacheManager,application=*
+        attribute: AccessCount,CacheSize,FaultCount,FaultSizeSum,InitialLevel,Level,NewGenerationCacheSize,NewGenerationInitialLevel,NewGenerationLevel,OldGenerationInitialLevel,OldGenerationLevel,RecallCount,RecallSizeSum,RotateCount,Uptime
+      - description: Receiver that is connected to the feeder
+        mbean: com.coremedia:type=Receiver,application=*
+        attribute: AddProcessedCount,AddReceivedCount,InitializeProcessedCount,InitializeReceivedCount,ProcessedCount,ReceivedCount,RemoveProcessedCount,RemoveReceivedCount,UpdateProcessedCount,UpdateReceivedCount
+
+    adobe-drive:
+      description: Adobe Drive Server
+      metrics:
+      - description: CapConnection
+        name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open
+
+    adobe-drive-server:
+      description: Adobe Drive Server
+      metrics:
+      - description: CapConnection
+        name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open
+
+    sitemanager:
+      description: Site Manger - single Application to provide the old FAT Client
+      metrics: []
+
+    editor-webstart:
+      description: Editor Webstart - single Application to provide the old FAT Client
+      metrics: []
+
+    cae:
+      description: checks for all CAE Services
+      metrics:
+      - description: CapConnection
+        name: CapConnection
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open,Url,ContentRepositoryAvailable
+      - mbean: com.coremedia:type=DataViewFactory,application=*
+        attribute: ActiveTimeOfComputedDataViews,NumberOfCachedDataViews,NumberOfComputedDataViews,NumberOfDataViewLookups,NumberOfEvictedDataViews,NumberOfInvalidatedDataViews,TotalTimeOfComputedDataViews
+      # currently disabled
+      # need information or discusion about it
+#      - mbean: com.coremedia:type=TransformedBlobCacheManager,application=*
+#        attribute: AccessCount,CacheSize,FaultCount,FaultSizeSum,InitialLevel,Level,NewGenerationCacheSize,NewGenerationInitialLevel,NewGenerationLevel,OldGenerationInitialLevel,OldGenerationLevel,RecallCount,RecallSizeSum,RotateCount
+
+    studio:
+      description: check for the CM Studio
+      metrics:
+      - description: CapConnection
+        name: CapConnection for Studio
+        mbean: com.coremedia:type=CapConnection,application=*
+        attribute: BlobCacheSize,BlobCacheLevel,BlobCacheFaults,HeapCacheSize,HeapCacheLevel,HeapCacheFaults,NumberOfSUSessions,Open,ContentRepositoryAvailable,WorkflowRepositoryAvailable
+
+    solr:
+      description: Solr Standard Checks for Core %CORE%
+      metrics:
+      - mbean: solr/%CORE%:type=/replication,id=org.apache.solr.handler.ReplicationHandler
+        attribute: errors,isMaster,isSlave,requests,medianRequestTime,indexVersion,indexSize,generation
+      - mbean: solr/%CORE%:type=queryResultCache,id=org.apache.solr.search.LRUCache
+        attribute: cumulative_evictions,cumulative_hitratio,cumulative_hits,cumulative_inserts,cumulative_lookups,description,evictions,hitratio,hits,inserts,lookups,size,warmupTime
+      - mbean: solr/%CORE%:type=documentCache,id=org.apache.solr.search.LRUCache
+        attribute: cumulative_evictions,cumulative_hitratio,cumulative_hits,cumulative_inserts,cumulative_lookups,description,evictions,hitratio,hits,inserts,lookups,size,warmupTime
+      - mbean: solr/%CORE%:type=/select,id=org.apache.solr.handler.component.SearchHandler
+        attribute: avgRequestsPerSecond,avgTimePerRequest,medianRequestTime,requests,timeouts,errors
+      - mbean: solr:dom1=core,dom2=%CORE%,category=REPLICATION,scope=/replication,name=*
+      - mbean: solr:dom1=core,dom2=%CORE%,category=QUERY,scope=/select,name=*
+      - mbean: solr:dom1=core,dom2=%CORE%,category=CACHE,scope=searcher,name=*
+      - mbean: solr:dom1=core,dom2=%CORE%,category=INDEX,name=*
+
+    webdav:
+      description: Webdav
+      metrics: []
+
+    cloud-manager-backend:
+      description: Cloud Manager Backend (AWS specific)
+      metrics: []
+

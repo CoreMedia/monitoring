@@ -1,0 +1,292 @@
+
+---
+services:
+
+  http-proxy:
+    description: HTTP Proxy
+    port: 80
+    vhosts:
+    - ''
+
+  https-proxy:
+    description: HTTPS Proxy
+    port: 443
+
+  http-status:
+    description: HTTP Server Status
+    port: 8081
+
+  mysql:
+    description: MySQL
+    port: 3306
+    monitoring_user: monitoring
+    monitoring_password: monitoring
+
+  postgres:
+    description: PostgreSQL
+    port: 5432
+
+  redis:
+    description: Redis
+    port: 6379
+
+  node-exporter:
+    description: node_exporter (Prometheus)
+    port: 9100
+
+  node-exporter:
+    description: node_exporter (CoreMedia internal)
+    port: 19100
+
+  mongodb:
+    description: MongoDB
+    port: 27017
+
+  mongodb-http:
+    description: MongoDB HTTP (obsolete)
+    port: 28017
+
+  resourced:
+    description: Resourced
+    port: 55555
+
+  solr:
+    description: Solr
+    port: 40099
+    port_http: 40080
+    cores:
+    - live
+    - preview
+    - studio
+    application:
+    - solr
+
+  solr-master:
+    description: Solr Master
+    port: 40099
+    port_http: 40080
+    cores:
+    - live
+    - preview
+    - studio
+    application:
+    - solr
+
+  solr-slave:
+    description: Solr Slave
+    port: 40099
+    port_http: 40080
+    cores:
+    - live
+    - preview
+    - studio
+    application:
+    - solr
+
+  editor-webstart:
+    description: Editor Webstart
+    port: 40099
+
+  content-management-server:
+    description: ContentServer CMS
+    port: 40199
+    port_http: 40180
+    ior: true
+    runlevel: true
+    license: true
+    heap_cache: true
+    publisher: true
+    application:
+    - contentserver
+
+  master-live-server:
+    description: ContentServer MLS
+    port: 40299
+    port_http: 40280
+    ior: true
+    runlevel: true
+    license: true
+    heap_cache: true
+    application:
+    - contentserver
+
+  workflow-server:
+    description: ContentServer WFS
+    port: 49099
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    workflow_repository: true
+
+  content-feeder:
+    description: Content Feeder
+    port: 40499
+    feeder: content
+    cap_connection: true
+    uapi_cache: false
+    heap_cache: true
+    content_repository: true
+
+  user-changes:
+    description: User Changes
+    port: 40599
+    cap_connection: true
+    uapi_cache: false
+    heap_cache: true
+
+  elastic-worker:
+    description: Elastic Worker
+    port: 40699
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+
+  caefeeder-preview:
+    description: CAEFeeder Preview
+    port: 40799
+    feeder: preview
+    cap_connection: true
+    uapi_cache: false
+    heap_cache: true
+    content_repository: true
+    application:
+    - caefeeder
+#    template: cm-caefeeder
+
+  caefeeder-live:
+    description: CAEFeeder Live
+    port: 40899
+    feeder: live
+    cap_connection: true
+    uapi_cache: false
+    heap_cache: true
+    content_repository: true
+    application:
+    - caefeeder
+#    template: cm-caefeeder
+
+  cae-preview:
+    description: CAE Preview
+    port: 40999
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    content_repository: true
+    application:
+    - cae
+    - caches
+    - caches-ecommerce
+    - caches-ecommerce-fragment
+
+  studio:
+    description: Studio
+    port: 41099
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    content_repository: true
+    workflow_repository: true
+    application:
+    - caches-studio
+    - caches-ecommerce
+
+  adobe-drive:
+    description: Adobe Drive
+    port: 41199
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+
+  adobe-drive-server:
+    description: Adobe Drive Server
+    port: 41199
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+
+  webdav:
+    description: WebDAV
+    port: 41299
+
+  sitemanager:
+    description: Site Manager
+    port: 41399
+
+  replication-live-server:
+    description: ContentServer RLS
+    port: 42099
+    port_http: 42080
+    ior: true
+    runlevel: true
+    license: true
+    sequencenumbers: true
+    heap_cache: true
+    application:
+    - contentserver
+
+  cae-live:
+    description: CAE Live
+    port: 42199
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    content_repository: true
+    application:
+    - cae
+    - caches
+    - caches-ecommerce
+    - caches-ecommerce-fragment
+
+  cae-live-1:
+    description: CAE Live 1
+    port: 42199
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    content_repository: true
+    application:
+    - cae
+    - caches
+    - caches-ecommerce
+    - caches-ecommerce-fragment
+
+  cae-live-2:
+    description: CAE Live 2
+    port: 42299
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    content_repository: true
+    application:
+    - cae
+    - caches
+    - caches-ecommerce
+    - caches-ecommerce-fragment
+
+  cae-live-3:
+    description: CAE Live 3
+    port: 42399
+    cap_connection: true
+    uapi_cache: false
+    blob_cache: true
+    heap_cache: true
+    content_repository: true
+    application:
+    - cae
+    - caches
+    - caches-ecommerce
+    - caches-ecommerce-fragment
+
+  cloud-manager-backend:
+    description: Cloud Manager Backend (AWS specific)
+    port: 44099
+    cap_connection: true
+

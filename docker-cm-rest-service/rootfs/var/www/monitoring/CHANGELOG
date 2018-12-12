@@ -1,0 +1,77 @@
+{
+  "1804": {
+    "version": "1804",
+    "date": "23.04.2018",
+    "changes": [
+      "add more documentations",
+      "update to grafana 5.0.4",
+      "update icingaweb2",
+      "set warning and critical values in some icinga2 checks",
+      "bugfix for icinga2 memory check",
+      "add max feeder elements for CAE Feeders",
+      "add this web UI",
+      "add Background Feeder graphs for Content Feeder",
+      "remove 'used UAPI Cache' from Grafana Overview"
+    ]
+  },
+  "1806": {
+    "version": "1806",
+    "date": "18.06.2018",
+    "changes": [
+      "update to icinga2 2.8.4",
+      "update to icingaweb2 2.5.3",
+      "update to graphite 1.1.3",
+      "update to grafana gem 0.10.1",
+      "update to icinga2 gem 1.0.0",
+      "update to grafana 5.1.3",
+      "grafana folder support",
+      "set grafana 5 as default",
+      "split annotations into more types",
+      "update to jolokia 1.5.0",
+      "jolokia supports now authentication",
+      "add new documentations container",
+      "including the stack documentation and a operation guide",
+      "support node_exporter v0.16.x"
+    ]
+  },
+  "1808": {
+    "version": "1808",
+    "date": "17.08.2018",
+    "changes": [
+      "support alpine 3.8",
+      "update to grafana 5.2.2",
+      "update to icinga2 2.9.1",
+      "update to icingaweb2 1.6.1",
+      "update to jolokia 1.6.0",
+      "updates for mongodb 3.6 (remove deprecated HTTP interface and REST API)",
+      "updates for more than one node deployment",
+      "enable the refresh task in the service-discovery per default",
+      "fix bug with ecommerce cache dashboard",
+      "fix some grafana 5 dashboards",
+      "create team prefixed docker-compose files",
+      "fix bug for content server detection when the hostname was 'localhost'"
+    ]
+  },
+  "1810": {
+    "version": "1810",
+    "date": "10.10.2018",
+    "changes": [
+      "update to grafana 5.2.4",
+      "update to icinga2 2.9.2",
+      "remove postgres support in data collector",
+      "enhanced support of moebius' multi-node-deployment",
+      "import only the really needed Grafana templates",
+      "support multiple installations of CAE(Live) on one host",
+      "better errorhandling at importing of grafana dashboards",
+      "support for the Publisher mbean (used in the content-management-server application)",
+      "add check_publisher for icinga2",
+      "add open file descriptors monitoring to icinga and grafana",
+      "fix double entries in the prepared service cache",
+      "more measuring points for mysql / mariadb monitoring",
+      "change markdown browser backend to algernon",
+      "remove postgres support",
+      "enable cors for external integration",
+      "remove obsolete code "
+    ]
+  }
+}

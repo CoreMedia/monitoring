@@ -1,0 +1,78 @@
+
+CoreMedia Monitoring API - v2 (Version 1709)
+
+Short description of the REST API
+
+  -> Please take a look at the Documentation for more Examples! <-
+
+  - Shows all hosts known to the monitoring
+    curl \
+      --silent \
+      --request GET \
+      http://localhost/api/v2/host | \
+      json_reformat
+
+  - View the information about the host $name
+    curl \
+      --silent \
+      --request GET \
+      http://localhost/api/v2/host/${HOSTNAME} | \
+      json_reformat
+
+
+  - Adding a Host to monitoring
+    curl \
+      --silent \
+      --request POST \
+      --data '' \
+      http://localhost/api/v2/host/${HOSTNAME} | \
+      json_reformat
+
+  - Remove Host from Monitoring
+    curl \
+      --silent \
+      --request DELETE \
+      http://localhost/api/v2/host/${HOSTNAME} | \
+      json_reformat
+
+
+  - Create an annotation that the host was created
+    curl \
+      --silent \
+      --request POST \
+      --data '{ "command": "create" }' \
+      http://localhost/api/v2/annotation/${HOSTNAME} | \
+      json_reformat
+
+  - Create an annotation that the host was deleted
+    curl \
+      --silent \
+      --request POST \
+      --data '{ "command": "destroy" }' \
+      http://localhost/api/v2/annotation/${HOSTNAME} | \
+      json_reformat
+
+  - Create an annotation for starting a load test
+    curl \
+      --silent \
+      --request POST \
+      --data '{ "command": "loadtest", "argument": "start" }' \
+      http://localhost/api/v2/annotation/${HOSTNAME} | \
+      json_reformat
+
+  - Creates an annotation for terminating a load test
+    curl \
+      --silent \
+      --request POST \
+      --data '{ "command": "loadtest", "argument": "stop" }' \
+      http://localhost/api/v2/annotation/${HOSTNAME} | \
+      json_reformat
+
+  - Creates an annotation for a deployment
+    curl \
+      --silent \
+      --request POST \
+      --data '{ "command": "deployment", "message": "version 7.1.50", "tags": ["7.1.50"] }' \
+      http://localhost/api/v2/annotation/${HOSTNAME} | \
+      json_reformat
+

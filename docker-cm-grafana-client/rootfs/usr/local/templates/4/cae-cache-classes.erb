@@ -1,0 +1,1906 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "<%= slug %> - Cache Classes (CM)",
+    "tags": [ "<%= short_hostname %>" ],
+    "style": "dark",
+    "timezone": "browser",
+    "editable": true,
+    "hideControls": false,
+    "sharedCrosshair": true,
+    "rows": [
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AMAsset.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AMAsset.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AMAsset.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AMAsset.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AMAsset.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "AMAsset",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ContentBeanBackedPageGridPlacement.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ContentBeanBackedPageGridPlacement.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ContentBeanBackedPageGridPlacement.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ContentBeanBackedPageGridPlacement.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ContentBeanBackedPageGridPlacement.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "ContentBeanBackedPageGridPlacement",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.PageGridImpl.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.PageGridImpl.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.PageGridImpl.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.PageGridImpl.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.PageGridImpl.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "PageGridImpl",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SolrQueryCacheKey.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SolrQueryCacheKey.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SolrQueryCacheKey.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SolrQueryCacheKey.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SolrQueryCacheKey.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "SolrQueryCacheKey",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Page.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Page.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Page.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Page.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Page.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Page",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Aspect.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Aspect.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Aspect.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Aspect.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Aspect.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Aspect",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ViewLookup.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ViewLookup.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ViewLookup.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ViewLookup.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ViewLookup.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "ViewLookup",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.LoadedImageCacheKey.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.LoadedImageCacheKey.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.LoadedImageCacheKey.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.LoadedImageCacheKey.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.LoadedImageCacheKey.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "LoadedImageCacheKey",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Object.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Object.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Object.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Object.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Object.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Object",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AssumesIdentity.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AssumesIdentity.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AssumesIdentity.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AssumesIdentity.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.AssumesIdentity.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Assumes Identity",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.DIGEST.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.DIGEST.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.DIGEST.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.DIGEST.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.DIGEST.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Digest",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Disk.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Disk.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Disk.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Disk.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Disk.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Disk",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Heap.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Heap.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Heap.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Heap.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Heap.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Heap",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          },
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Unlimited.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Unlimited.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Unlimited.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Unlimited.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.Unlimited.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Unlimited",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "180px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 10,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true,
+              "sideWidth": 200
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "missRate",
+                "color": "#CFFAFF",
+                "yaxis": 2
+              },
+              {
+                "alias": "removed",
+                "color": "#1F78C1",
+                "yaxis": 2
+              },
+              {
+                "alias": "evicted",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 6,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ALWAYS_STAY_IN_CACHE.capacity)",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ALWAYS_STAY_IN_CACHE.level)",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ALWAYS_STAY_IN_CACHE.evicted)",
+                "textEditor": false
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ALWAYS_STAY_IN_CACHE.removed)",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ALWAYS_STAY_IN_CACHE.missRate)",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Always stay in cache",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timepicker": {
+      "now": true,
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "value": "<%= graphite_identifier %>",
+            "text": "<%= graphite_identifier %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= graphite_identifier %>"
+            }
+          ],
+          "query": "<%= graphite_identifier %>",
+          "type": "constant"
+        },
+        {
+          "current": {
+            "text": "CAE_LIVE",
+            "value": "CAE_LIVE"
+          },
+          "datasource": "graphite",
+          "hide": 1,
+          "includeAll": false,
+          "multi": false,
+          "name": "service",
+          "options": [
+            {
+              "text": "CAE_LIVE",
+              "value": "CAE_LIVE",
+              "selected": true
+            },
+            {
+              "text": "CAE_PREV",
+              "value": "CAE_PREV",
+              "selected": false
+            },
+            {
+              "text": "STUDIO",
+              "value": "STUDIO",
+              "selected": false
+            }
+          ],
+          "query": "carbon-writer.$host.*",
+          "refresh": 1,
+          "regex": "/^(CAE_(.*)|STUDIO).*$/",
+          "tags": [],
+          "type": "query",
+          "useTags": false,
+          "label": ""
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "name": "created",
+          "enable": true,
+          "iconColor": "rgb(93, 227, 12)",
+          "datasource": "events",
+          "tags": "$host created&set=intersection"
+        },
+        {
+          "name": "Load Tests",
+          "enable": true,
+          "iconColor": "rgb(26, 196, 220)",
+          "datasource": "events",
+          "tags": "$host loadtest&set=intersection"
+        },
+        {
+          "name": "Deployments",
+          "enable": true,
+          "iconColor": "rgb(176, 40, 253)",
+          "datasource": "events",
+          "tags": "$host deployment&set=intersection"
+        }
+      ]
+    },
+    "refresh": "1m",
+    "schemaVersion": 12,
+    "version": 4,
+    "links": []
+  }
+}

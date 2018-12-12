@@ -1,0 +1,58 @@
+---
+
+# this creates only contact-groups and users!
+# login-user must be create otherwhise
+groups:
+  coremedia:
+    display_name: CoreMedia
+  1st-level:
+    display_name: 1st Level
+  2nd-level:
+    display_name: 2nd Level
+  operating:
+    display_name: Operating
+
+users:
+  bodsch:
+    display_name: Bodo Schulz
+    email: bodo.schulz@coremedia.com
+    pager: ''
+    groups:
+      - coremedia
+    enable_notifications: true
+
+configuration_packages:
+
+  service_groups:
+    heap-memory:
+      display_name: Heap Memory
+      notes: combined all Heap Memory Service Checks
+      assign: match("HeapMemory*", service.name)
+      ignore: ''
+    blob-cache:
+      display_name: BLOB Caches
+      assign: match("BLOBCache*", service.name)
+    uapi-cache:
+      display_name: UAPI Caches
+      assign: match("UAPICache*", service.name)
+    cap-connection:
+      display_name: Cap Connection
+      assign: match("CapConnection*", service.name)
+    ior:
+      display_name: IOR
+      assign: match("IOR*", service.name)
+    license:
+      display_name: License
+      assign: match("License*", service.name)
+    runlevel:
+      display_name: Runlevel
+      assign: match("Runlevel*", service.name)
+    tcp-ports:
+      display_name: TCP Ports
+      assign: match("port*", service.name)
+
+  host_groups:
+    coremedia:
+      display_name: CoreMedia
+      notes: all Hosts with CoreMedia Services
+      assign: host.vars.coremedia

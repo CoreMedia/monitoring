@@ -1,0 +1,44 @@
+***** Icinga2 <%= notification_type %> Notification ******
+
+  Host:               <%= host_name %> (<%= host_address %>)
+  Last Check:         <%= last_check %>
+  Duration:           <%= failed_since %> hours (since <%= problem_time %>)
+
+<% if( service_name.size != 0 ) -%>
+  Output:             <%= service_output %>
+  Service:            <%= service_name %>
+<% else %>
+  Output:             <%= host_output %>
+<% end -%>
+
+<% if( notification_author.size != 0 && notification_comment.size != 0 ) -%>
+  Comment:            <%= notification_comment %>
+  Author:             <%= notification_author %>
+<% end -%>
+
+  Show Details:       <%= link_details %>
+<% if( link_ack.size != 0 ) -%>
+  Acknowledge:        <%= link_ack %>
+<% end -%>
+
+<% if( host_customer.size != 0 ) -%>
+  Customer:           <%= host_customer %>
+<% end -%>
+<% if( host_environment.size != 0 ) -%>
+  Environment:        <%= host_environment %>
+<% end -%>
+<% if( host_tier.size != 0 ) -%>
+  Tier:               <%= host_tier %>
+<% end -%>
+<% if( host_team.size != 0 ) -%>
+  Team:               <%= host_team %>
+<% end -%>
+<% if( aws_name.size != 0 ) -%>
+  AWS Name:           <%= aws_name %>
+<% end -%>
+<% if( aws_region.size != 0 ) -%>
+  AWS Region:         <%= aws_region %>
+<% end -%>
+<% if( aws_instance_id.size != 0 ) -%>
+  AWS Instance:       <%= aws_instance_id %>
+<% end -%>

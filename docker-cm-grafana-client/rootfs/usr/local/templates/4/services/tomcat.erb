@@ -1,0 +1,90 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "<%= slug %> - Tomcat",
+    "originalTitle": "<%= slug %> Tomcat",
+    "tags": [ "<%= short_hostname %>" ],
+    "style": "dark",
+    "timezone": "browser",
+    "editable": true,
+    "hideControls": false,
+    "sharedCrosshair": true,
+    "rows": [
+      {
+        "collapse": false,
+        "height": 42,
+        "panels": [
+          {
+            "content": "<h3><center><a href=\"/grafana/dashboard/db/<%= slug %>-tomcats?var-Application=<%= normalized_name %>\">Tomcat</a></center></h3>",
+            "id": 23,
+            "links": [],
+            "mode": "html",
+            "span": 12,
+            "title": "",
+            "type": "text"
+          }
+        ],
+        "repeat": null,
+        "repeatIteration": null,
+        "repeatRowId": null,
+        "showTitle": false,
+        "title": "",
+        "titleSize": "h6"
+      }
+    ],
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timepicker": {
+      "now": true,
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "value": "<%= graphite_identifier %>",
+            "text": "<%= graphite_identifier %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= graphite_identifier %>"
+            }
+          ],
+          "query": "<%= graphite_identifier %>",
+          "type": "constant"
+        }
+      ]
+    },
+    "annotations": {
+      "list": []
+    },
+    "refresh": "1m",
+    "schemaVersion": 12,
+    "version": 4,
+    "links": []
+  }
+}

@@ -1,0 +1,26 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color: #0a4282;
+
+$moreinfo-color: #fff;
+
+$meter-background:  darken($background-color, 15%);
+
+// ----------------------------------------------------------------------------
+// Widget-meter styles
+// ----------------------------------------------------------------------------
+.widget-meter {
+
+  .content { font-size: .9em; }
+
+  input.meter {
+    background-color: $meter-background;
+    color: #fff;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+    font-size: 18px;
+  }
+}

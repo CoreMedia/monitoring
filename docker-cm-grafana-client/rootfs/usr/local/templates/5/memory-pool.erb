@@ -1,0 +1,871 @@
+<%-
+  id = 10;
+%>
+{
+  "dashboard": {
+    "uid": "<%= uuid %>",
+    "id": null,
+    "title": "<%= slug %> - Memory Pools",
+    "tags": [ "<%= short_hostname %>", "memory-pools" ],
+    "schemaVersion": 12,
+    "version": 1,
+    "style": "dark",
+    "refresh": "1m",
+    "time": { "from": "now/d", "to": "now/d" },
+    "timepicker": {
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "now": true,
+      "refresh_intervals": [
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ]
+    },
+    "timezone": "browser",
+    "annotations": {
+      "list": []
+    },
+    "templating": {
+      "list": [
+        {
+          "name": "host",
+          "query": "<%= slug %>",
+          "current": {
+            "text": "<%= slug %>",
+            "value": "<%= graphite_identifier %>"
+          },
+          "options": [
+            {
+              "text": "<%= slug %>",
+              "value": "<%= graphite_identifier %>"
+            }
+          ],
+          "type": "constant",
+          "label": null,
+          "hide": 2
+        },
+        {
+          "regex": "/^(?!MONGODB|MYSQL|NODE_EXPORTER|HTTP).*$/",
+          "datasource": "graphite",
+          "type": "query",
+          "hide": 1,
+          "refresh": 1,
+          "includeAll": false,
+          "options": [
+            {
+              "selected": true,
+              "text": "ADOBE_DRIVE_SERVER",
+              "value": "ADOBE_DRIVE_SERVER"
+            },
+            {
+              "value": "CAE_LIVE",
+              "text": "CAE_LIVE",
+              "selected": false
+            },
+            {
+              "selected": false,
+              "text": "CAE_PREV",
+              "value": "CAE_PREV"
+            },
+            {
+              "value": "CMS",
+              "text": "CMS",
+              "selected": false
+            },
+            {
+              "value": "ELASTIC_WORKER",
+              "selected": false,
+              "text": "ELASTIC_WORKER"
+            },
+            {
+              "value": "FEEDER_CONTENT",
+              "selected": false,
+              "text": "FEEDER_CONTENT"
+            },
+            {
+              "value": "FEEDER_LIVE",
+              "selected": false,
+              "text": "FEEDER_LIVE"
+            },
+            {
+              "value": "FEEDER_PREV",
+              "text": "FEEDER_PREV",
+              "selected": false
+            },
+            {
+              "text": "MLS",
+              "selected": false,
+              "value": "MLS"
+            },
+            {
+              "value": "RLS",
+              "selected": false,
+              "text": "RLS"
+            },
+            {
+              "selected": false,
+              "text": "SITEMANAGER",
+              "value": "SITEMANAGER"
+            },
+            {
+              "selected": false,
+              "text": "SOLR_MASTER",
+              "value": "SOLR_MASTER"
+            },
+            {
+              "text": "STUDIO",
+              "selected": false,
+              "value": "STUDIO"
+            },
+            {
+              "text": "USER_CHANGES",
+              "selected": false,
+              "value": "USER_CHANGES"
+            },
+            {
+              "text": "WFS",
+              "selected": false,
+              "value": "WFS"
+            }
+          ],
+          "sort": 0,
+          "current": {
+            "text": "ADOBE_DRIVE_SERVER",
+            "value": "ADOBE_DRIVE_SERVER"
+          },
+          "tagsQuery": null,
+          "tagValuesQuery": null,
+          "allValue": null,
+          "tags": [],
+          "multi": false,
+          "query": "carbon-writer.$host.*",
+          "name": "Application"
+        }
+      ]
+    },
+
+    "rows": [
+      {
+        "title": "Par Eden Space",
+        "height": "160px",
+        "panels": [
+          {
+            "datasource": "graphite",
+            "type": "graph",
+            "aliasColors": {},
+            "renderer": "flot",
+            "lines": true,
+            "seriesOverrides": [
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#C15C17",
+                "alias": "percent"
+              },
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#BF1B00",
+                "alias": "percent (avg)"
+              }
+            ],
+            "stack": false,
+            "tooltip": {
+              "shared": true,
+              "msResolution": false,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "linewidth": 1,
+            "grid": {
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold1": null
+            },
+            "xaxis": {
+              "show": true
+            },
+            "decimals": 0,
+            "timeShift": null,
+            "points": false,
+            "span": 12,
+            "fill": 3,
+            "targets": [
+              {
+                "textEditor": false,
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.$Application.MemoryPool.Par_Eden_Space.committed)"
+              },
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Eden_Space.max, '(.*)-', ''))",
+                "refId": "B",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Eden_Space.used, '(.*)-', ''))",
+                "refId": "C"
+              },
+              {
+                "target": "alias(smartSummarize(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Eden_Space.used_percent, '(.*)-', ''), '3m', 'avg'), 'percent (avg)')",
+                "refId": "D",
+                "textEditor": false
+              },
+              {
+                "target": "aliasByMetric(alias(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Eden_Space.used_percent, '(.*)-', ''), 'percent'))",
+                "hide": true,
+                "refId": "E",
+                "textEditor": false
+              }
+            ],
+            "pointradius": 5,
+            "yaxes": [
+              {
+                "min": null,
+                "show": true,
+                "label": null,
+                "max": null,
+                "format": "bytes",
+                "logBase": 1
+              },
+              {
+                "label": "used in %",
+                "format": "none",
+                "max": "110",
+                "logBase": 1,
+                "min": null,
+                "show": true
+              }
+            ],
+            "nullPointMode": "connected",
+            "legend": {
+              "max": false,
+              "total": false,
+              "rightSide": true,
+              "current": true,
+              "values": true,
+              "min": false,
+              "avg": false,
+              "show": true,
+              "alignAsTable": true
+            },
+            "id": 10,
+            "bars": false,
+            "isNew": true,
+            "percentage": false,
+            "editable": true,
+            "links": [],
+            "timeFrom": null,
+            "error": false,
+            "title": "Par Eden Space",
+            "steppedLine": false
+          }
+        ]
+      },
+      {
+        "title": "Par Survivor Space",
+        "height": "160px",
+        "panels": [
+          {
+            "id": 11,
+            "legend": {
+              "values": true,
+              "avg": false,
+              "min": false,
+              "show": true,
+              "alignAsTable": true,
+              "max": false,
+              "total": false,
+              "rightSide": true,
+              "current": true
+            },
+            "nullPointMode": "connected",
+            "yaxes": [
+              {
+                "show": true,
+                "min": null,
+                "logBase": 1,
+                "max": null,
+                "format": "bytes",
+                "label": null
+              },
+              {
+                "min": null,
+                "show": true,
+                "label": "used in %",
+                "format": "none",
+                "max": "110",
+                "logBase": 1
+              }
+            ],
+            "percentage": false,
+            "editable": true,
+            "isNew": true,
+            "bars": false,
+            "links": [],
+            "timeFrom": null,
+            "steppedLine": false,
+            "error": false,
+            "title": "Par Suvivor Space",
+            "stack": false,
+            "seriesOverrides": [
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#C15C17",
+                "alias": "percent"
+              },
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#BF1B00",
+                "alias": "percent (avg)"
+              }
+            ],
+            "renderer": "flot",
+            "lines": true,
+            "datasource": "graphite",
+            "type": "graph",
+            "aliasColors": {},
+            "xaxis": {
+              "show": true
+            },
+            "grid": {
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold1": null,
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)"
+            },
+            "linewidth": 1,
+            "tooltip": {
+              "sort": 0,
+              "value_type": "cumulative",
+              "shared": true,
+              "msResolution": false
+            },
+            "decimals": 0,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Survivor_Space.committed, '(.*)-', ''))",
+                "textEditor": false
+              },
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Survivor_Space.max, '(.*)-', ''))",
+                "refId": "B",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "refId": "C",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Survivor_Space.used, '(.*)-', ''))"
+              },
+              {
+                "refId": "D",
+                "target": "alias(smartSummarize(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Survivor_Space.used_percent, '(.*)-', ''), '5m', 'avg'), 'percent (avg)')",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "refId": "E",
+                "hide": true,
+                "target": "aliasByMetric(alias(aliasSub(carbon-writer.$host.$Application.MemoryPool.Par_Survivor_Space.used_percent, '(.*)-', ''), 'percent'))"
+              }
+            ],
+            "pointradius": 5,
+            "fill": 3,
+            "span": 12,
+            "points": false,
+            "timeShift": null
+          }
+        ]
+      },
+      {
+        "title": "CMS Old Gen",
+        "height": "160px",
+        "panels": [
+          {
+            "span": 12,
+            "timeShift": null,
+            "points": false,
+            "targets": [
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.CMS_Old_Gen.committed, '(.*)-', ''))",
+                "refId": "A",
+                "textEditor": false
+              },
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.CMS_Old_Gen.max, '(.*)-', ''))",
+                "refId": "B",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "refId": "C",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.CMS_Old_Gen.used, '(.*)-', ''))"
+              },
+              {
+                "textEditor": false,
+                "target": "alias(smartSummarize(aliasSub(carbon-writer.$host.$Application.MemoryPool.CMS_Old_Gen.used_percent, '(.*)-', ''), '5m', 'avg'), 'percent (avg)')",
+                "refId": "D"
+              },
+              {
+                "hide": true,
+                "target": "aliasByMetric(alias(aliasSub(carbon-writer.$host.$Application.MemoryPool.CMS_Old_Gen.used_percent, '(.*)-', ''), 'percent'))",
+                "refId": "E",
+                "textEditor": false
+              }
+            ],
+            "pointradius": 5,
+            "fill": 3,
+            "decimals": 0,
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "xaxis": {
+              "show": true
+            },
+            "linewidth": 1,
+            "grid": {
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold1": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "lines": true,
+            "renderer": "flot",
+            "datasource": "graphite",
+            "type": "graph",
+            "aliasColors": {},
+            "stack": false,
+            "seriesOverrides": [
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#C15C17",
+                "alias": "percent"
+              },
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#BF1B00",
+                "alias": "percent (avg)"
+              }
+            ],
+            "error": false,
+            "title": "CMS Old Gen",
+            "steppedLine": false,
+            "timeFrom": null,
+            "links": [],
+            "bars": false,
+            "isNew": true,
+            "percentage": false,
+            "editable": true,
+            "yaxes": [
+              {
+                "show": true,
+                "min": null,
+                "label": null,
+                "logBase": 1,
+                "format": "bytes",
+                "max": null
+              },
+              {
+                "label": "used in %",
+                "format": "none",
+                "max": "110",
+                "logBase": 1,
+                "min": null,
+                "show": true
+              }
+            ],
+            "legend": {
+              "max": false,
+              "total": false,
+              "current": true,
+              "rightSide": true,
+              "values": true,
+              "min": false,
+              "avg": false,
+              "show": true,
+              "alignAsTable": true
+            },
+            "id": 12,
+            "nullPointMode": "connected"
+          }
+        ]
+      },
+      {
+        "title": "Metaspace",
+        "height": "150px",
+        "panels": [
+          {
+            "fill": 3,
+            "pointradius": 5,
+            "targets": [
+              {
+                "textEditor": false,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Metaspace.committed, '(.*)-', ''))",
+                "refId": "A"
+              },
+              {
+                "hide": true,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Metaspace.max, '(.*)-', ''))",
+                "refId": "B",
+                "textEditor": false
+              },
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Metaspace.used, '(.*)-', ''))",
+                "refId": "C",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "refId": "D",
+                "target": "alias(smartSummarize(aliasSub(carbon-writer.$host.$Application.MemoryPool.Metaspace.used_percent, '(.*)-', ''), '5m', 'avg'), 'percent (avg)')"
+              },
+              {
+                "target": "aliasByMetric(alias(aliasSub(carbon-writer.$host.$Application.MemoryPool.Metaspace.used_percent, '(.*)-', ''), 'percent'))",
+                "hide": true,
+                "refId": "E",
+                "textEditor": false
+              }
+            ],
+            "timeShift": null,
+            "points": false,
+            "span": 12,
+            "decimals": 0,
+            "linewidth": 1,
+            "grid": {
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold1": null,
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)"
+            },
+            "xaxis": {
+              "show": true
+            },
+            "tooltip": {
+              "shared": true,
+              "msResolution": false,
+              "value_type": "cumulative",
+              "sort": 0
+            },
+            "seriesOverrides": [
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#C15C17",
+                "alias": "percent"
+              },
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#BF1B00",
+                "alias": "percent (avg)"
+              }
+            ],
+            "stack": false,
+            "datasource": "graphite",
+            "type": "graph",
+            "aliasColors": {},
+            "lines": true,
+            "renderer": "flot",
+            "steppedLine": false,
+            "title": "Metaspace",
+            "error": false,
+            "timeFrom": null,
+            "links": [],
+            "percentage": false,
+            "editable": true,
+            "bars": false,
+            "isNew": true,
+            "nullPointMode": "connected",
+            "id": 13,
+            "legend": {
+              "values": true,
+              "avg": false,
+              "min": false,
+              "show": true,
+              "alignAsTable": true,
+              "max": false,
+              "total": false,
+              "rightSide": true,
+              "current": true
+            },
+            "yaxes": [
+              {
+                "min": null,
+                "show": true,
+                "format": "bytes",
+                "max": null,
+                "logBase": 1,
+                "label": null
+              },
+              {
+                "label": "used in %",
+                "logBase": 1,
+                "max": "110",
+                "format": "none",
+                "show": true,
+                "min": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Code Cache",
+        "height": "160px",
+        "panels": [
+          {
+            "error": false,
+            "title": "Code Cache",
+            "steppedLine": false,
+            "links": [],
+            "timeFrom": null,
+            "isNew": true,
+            "bars": false,
+            "percentage": false,
+            "editable": true,
+            "yaxes": [
+              {
+                "show": true,
+                "min": null,
+                "label": null,
+                "logBase": 1,
+                "format": "bytes",
+                "max": null
+              },
+              {
+                "logBase": 1,
+                "format": "none",
+                "max": "110",
+                "label": "used in %",
+                "show": true,
+                "min": null
+              }
+            ],
+            "nullPointMode": "connected",
+            "id": 14,
+            "legend": {
+              "avg": false,
+              "min": false,
+              "show": true,
+              "alignAsTable": true,
+              "values": true,
+              "total": false,
+              "current": true,
+              "rightSide": true,
+              "max": false
+            },
+            "timeShift": null,
+            "points": false,
+            "span": 12,
+            "fill": 3,
+            "pointradius": 5,
+            "targets": [
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Code_Cache.committed, '(.*)-', ''))",
+                "refId": "A",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "refId": "B",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Code_Cache.max, '(.*)-', ''))"
+              },
+              {
+                "textEditor": false,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Code_Cache.used, '(.*)-', ''))",
+                "refId": "C"
+              },
+              {
+                "textEditor": false,
+                "refId": "D",
+                "target": "alias(smartSummarize(aliasSub(carbon-writer.$host.$Application.MemoryPool.Code_Cache.used_percent, '(.*)-', ''), '5m', 'avg'), 'percent (avg)')"
+              },
+              {
+                "textEditor": false,
+                "refId": "E",
+                "hide": true,
+                "target": "aliasByMetric(alias(aliasSub(carbon-writer.$host.$Application.MemoryPool.Code_Cache.used_percent, '(.*)-', ''), 'percent'))"
+              }
+            ],
+            "decimals": 0,
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "grid": {
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold1": null,
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)"
+            },
+            "linewidth": 1,
+            "xaxis": {
+              "show": true
+            },
+            "type": "graph",
+            "datasource": "graphite",
+            "aliasColors": {},
+            "lines": true,
+            "renderer": "flot",
+            "stack": false,
+            "seriesOverrides": [
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#C15C17",
+                "alias": "percent"
+              },
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#BF1B00",
+                "alias": "percent (avg)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Compressed Class Space",
+        "height": "160px",
+        "panels": [
+          {
+            "timeFrom": null,
+            "links": [],
+            "error": false,
+            "title": "Compressed Class Space",
+            "steppedLine": false,
+            "yaxes": [
+              {
+                "min": null,
+                "show": true,
+                "label": null,
+                "max": null,
+                "format": "bytes",
+                "logBase": 1
+              },
+              {
+                "max": "110",
+                "format": "none",
+                "logBase": 1,
+                "label": "used in %",
+                "min": null,
+                "show": true
+              }
+            ],
+            "legend": {
+              "show": true,
+              "min": false,
+              "avg": false,
+              "alignAsTable": true,
+              "values": true,
+              "total": false,
+              "rightSide": true,
+              "current": true,
+              "max": false
+            },
+            "id": 15,
+            "nullPointMode": "connected",
+            "isNew": true,
+            "bars": false,
+            "percentage": false,
+            "editable": true,
+            "decimals": 0,
+            "span": 12,
+            "timeShift": null,
+            "points": false,
+            "targets": [
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Compressed_Class_Space.committed, '(.*)-', ''))",
+                "refId": "A",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Compressed_Class_Space.max, '(.*)-', ''))",
+                "textEditor": false
+              },
+              {
+                "textEditor": false,
+                "refId": "C",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.$Application.MemoryPool.Compressed_Class_Space.used, '(.*)-', ''))"
+              },
+              {
+                "textEditor": false,
+                "target": "alias(smartSummarize(aliasSub(carbon-writer.$host.$Application.MemoryPool.Compressed_Class_Space.used_percent, '(.*)-', ''), '5m', 'avg'), 'percent (avg)')",
+                "refId": "D"
+              },
+              {
+                "hide": true,
+                "target": "aliasByMetric(alias(aliasSub(carbon-writer.$host.$Application.MemoryPool.Compressed_Class_Space.used_percent, '(.*)-', ''), 'percent'))",
+                "refId": "E",
+                "textEditor": false
+              }
+            ],
+            "pointradius": 5,
+            "fill": 3,
+            "lines": true,
+            "renderer": "flot",
+            "datasource": "graphite",
+            "type": "graph",
+            "aliasColors": {},
+            "stack": false,
+            "seriesOverrides": [
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#C15C17",
+                "alias": "percent"
+              },
+              {
+                "yaxis": 2,
+                "fill": 4,
+                "color": "#BF1B00",
+                "alias": "percent (avg)"
+              }
+            ],
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "value_type": "cumulative",
+              "sort": 0
+            },
+            "xaxis": {
+              "show": true
+            },
+            "linewidth": 1,
+            "grid": {
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold1": null
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

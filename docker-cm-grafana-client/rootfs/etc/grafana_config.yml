@@ -1,0 +1,46 @@
+---
+organisation:
+  name: CoreMedia
+  address:
+    address1: ''
+    address2: ''
+    city: Hamburg
+    zipCode: ''
+    state: ''
+    country: ''
+
+users:
+  - user_name: coremedia
+    password: coremedia
+    login_name: CoreMedia
+    email: bschulz@coremedia.com
+    grafana_admin: true
+    organisations:
+      - CoreMedia:
+          role: Admin
+
+datasources:
+  graphite:
+  - name: graphite
+    host: graphite
+    port: 8080
+    database: carbon
+    default: true
+    data:
+      graphiteVersion: '1.1'
+
+  - name: events
+    host: graphite
+    port: 8080
+    database: carbon
+    data:
+      graphiteVersion: '1.1'
+
+dashboards:
+  import_from_directory: /tmp/dashboards
+
+admin_user:
+  user_name: Moebius
+  email: moebius-team@coremedia.com
+  login_name: cm-admin
+  password: cm-admin

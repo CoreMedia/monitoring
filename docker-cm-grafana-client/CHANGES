@@ -1,0 +1,64 @@
+CHANGES
+========
+
+v2.0
+
+**BREAKING CHANGES**
+We now use a grafana gem.
+Grafana version 4.6 or higher is now configured via an (optional) YAML file.
+All relevant parameters are removed from the Docker Container.
+
+Example Configuration:
+
+```
+---
+version: '2.0'
+
+organisation:
+  name: CoreMedia
+  address:
+    address1: ''
+    address2: ''
+    city: Hamburg
+    zipCode: ''
+    state: ''
+    country: ''
+
+users:
+  - username: coremedia
+    password: coremedia
+    login_name: CoreMedia
+    email: moebius-team@coremedia.com
+    grafana_admin: true
+    organisations:
+      - CoreMedia:
+          role: Admin
+
+datasources:
+  graphite:
+  - name: graphite
+    host: graphite
+    port: 8080
+    database: graphite
+    default: true
+    data:
+      graphiteVersion: '1.1'
+
+  - name: events
+    host: graphite
+    port: 2003
+    database: graphite
+    data:
+      graphiteVersion: '1.1'
+
+dashboards:
+  import_from_directory: /tmp/dashboards
+
+admin_user:
+  username: Moebius
+  login_name: cm-admin
+  password: cm-admin
+  email: moebius-team@coremedia.com
+```
+
+configuration takes place at the start of the grafana client.

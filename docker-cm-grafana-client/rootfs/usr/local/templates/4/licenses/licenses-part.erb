@@ -1,0 +1,260 @@
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "100px",
+        "panels": [
+          {
+            "content": "<h3><center><%= normalized_name %></center</h3>",
+            "editable": true,
+            "error": false,
+            "id": 3,
+            "isNew": true,
+            "links": [],
+            "mode": "html",
+            "span": 1,
+            "title": "",
+            "transparent": true,
+            "type": "text"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 1,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.feeder.concurrent.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "Feeder",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 2,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.feeder.named.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "Feeder",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "content": "",
+            "editable": true,
+            "error": false,
+            "id": 3,
+            "isNew": true,
+            "links": [],
+            "mode": "html",
+            "span": 1,
+            "title": "",
+            "transparent": true,
+            "type": "text"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 4,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.publisher.concurrent.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "Publisher",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 5,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.publisher.named.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "Publisher",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "content": "",
+            "editable": true,
+            "error": false,
+            "id": 6,
+            "isNew": true,
+            "links": [],
+            "mode": "html",
+            "span": 1,
+            "title": "",
+            "transparent": true,
+            "type": "text"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 7,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.replicator.concurrent.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "Replicator",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 8,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.replicator.named.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "Replicator",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "content": "",
+            "editable": true,
+            "error": false,
+            "id": 9,
+            "isNew": true,
+            "links": [],
+            "mode": "html",
+            "span": 1,
+            "title": "",
+            "transparent": true,
+            "type": "text"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 10,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.system.concurrent.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "System",
+            "type": "singlestat",
+            "valueName": "current"
+          },
+          {
+            "cacheTimeout": null,
+            "colorBackground": false,
+            "colorValue": false,
+            "datasource": "graphite",
+            "editable": true,
+            "error": false,
+            "format": "none",
+            "id": 11,
+            "interval": null,
+            "isNew": true,
+            "links": [],
+            "nullPointMode": "connected",
+            "span": 1,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "carbon-writer.$host.<%= normalized_name %>.Server.ServiceInfo.system.named.diff"
+              }
+            ],
+            "thresholds": "",
+            "title": "System",
+            "type": "singlestat",
+            "valueName": "current"
+          }
+        ],
+        "title": "Row"
+      }

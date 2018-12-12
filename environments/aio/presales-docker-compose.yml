@@ -1,0 +1,421 @@
+---
+version: '3.3'
+
+networks:
+  frontend:
+  backend:
+  database:
+
+volumes:
+  database:
+    driver: local
+  redis:
+    driver: local
+  carbon:
+    driver: local
+  icinga:
+    driver: local
+
+services:
+
+  beanstalkd:
+    restart: always
+    image: bodsch/docker-beanstalkd:1.10
+    container_name: beanstalkd
+    hostname: beanstalkd
+    networks:
+      - database
+
+  database:
+    restart: always
+    image: bodsch/docker-mariadb
+    container_name: database
+    hostname: database
+    environment:
+      MARIADB_SYSTEM_USER: root
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    volumes:
+      - database:/srv
+    networks:
+      - database
+
+  jolokia:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-jolokia:1810
+    container_name: jolokia
+    hostname: jolokia
+    networks:
+      - backend
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100
+
+  memcached:
+    restart: always
+    image: memcached:1-alpine
+    container_name: memcached
+    hostname: memcached
+    command: "--listen=0.0.0.0 --memory-limit=8"
+    networks:
+      - database
+
+  redis:
+    restart: always
+    image: redis:4-alpine
+    container_name: redis
+    hostname: redis
+#    ports:
+#      - 6379:6379
+    volumes:
+      - redis:/data
+    networks:
+      - database
+
+  nginx:
+    restart: always
+    image: bodsch/docker-nginx:1.14.0
+    container_name: nginx
+    hostname: nginx
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - grafana
+      - icingaweb2
+      - cm-rest-service
+      - documentation
+    links:
+      - grafana
+      - icingaweb2
+      - cm-icinga2-master:icinga2-master
+      - cm-rest-service
+      - documentation
+    volumes:
+      # - ../../docker-cm-data/rootfs/data/www/entry-page:/var/www/entry-page
+      - ../config/nginx/etc/nginx/sites-enabled/01-all-in-one.conf:/etc/nginx/sites-enabled/01-all-in-one.conf:ro
+      - ../config/nginx/etc/nginx/nginx.conf-aio:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/secure/localhost:ro
+    networks:
+      - frontend
+      - backend
+
+  carbon:
+    restart: always
+    image: bodsch/docker-go-carbon:0.12.0
+    container_name: carbon
+    hostname: carbon
+    ports:
+      - 2003:2003
+      - 2003:2003/udp
+    volumes:
+      - carbon:/srv
+    networks:
+      - backend
+
+  graphite:
+    restart: always
+    image: bodsch/docker-graphite:1.1.4
+    container_name: graphite
+    hostname: graphite
+    environment:
+      # THIS TURN OFF THE INTERNAL CARBON!
+      # USE THIS ONLY WITH AN OTHER CARBON-WRITER (e.g. bodsch/docker-go-carbon)
+      USE_EXTERNAL_CARBON: 'true'
+    volumes:
+      - carbon:/srv
+    networks:
+      - backend
+
+  grafana:
+    restart: always
+    image: bodsch/docker-grafana:5.2.4
+    container_name: grafana
+    hostname: grafana
+    environment:
+      URL_PATH: /grafana/
+      ORGANISATION: CoreMedia
+      DATABASE_TYPE: mysql
+      MYSQL_HOST: database
+      MYSQL_ROOT_PASS: ${DATABASE_ROOT_PASSWORD}
+      GRAPHITE_HOST: graphite
+      # WE USE AN SEPERATE CARBON SERVICE
+      # IF NOT, THEN SET THEN TO $GRAPHITE_HOST
+      # (see above in this configuration part!)
+      CARBON_HOST: carbon
+      MEMCACHE_HOST: memcached
+      # LDAP_SERVER: ${LDAP_SERVER}
+      # LDAP_PORT: 389
+      # LDAP_BIND_DN: ${LDAP_BIND_DN}
+      # LDAP_BIND_PASSWORD: ${LDAP_BIND_PASSWORD}
+      # LDAP_BASE_DN: ${LDAP_BASE_DN}
+      # LDAP_GROUP_DN: ${LDAP_GROUP_DN}
+      # LDAP_SEARCH_FILTER: ${LDAP_SEARCH_FILTER}
+    depends_on:
+      - database
+      - memcached
+    links:
+      - database
+      - memcached
+    networks:
+      - frontend
+      - backend
+      - database
+
+  cm-icinga2-master:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-icinga2:1810
+    container_name: cm-icinga2-master
+    hostname: cm-icinga2-master
+    depends_on:
+      - database
+      - redis
+    links:
+      - database
+      - redis
+    environment:
+      ICINGA2_MASTER: cm-icinga2-master
+      ICINGA2_API_USERS: root:icinga,icingaweb:icingaweb,dashing:dashing,cert:foo-bar
+      BASIC_AUTH_USER: ${CERT_SERVICE_BA_USER}
+      BASIC_AUTH_PASS: ${CERT_SERVICE_BA_PASSWORD}
+#      ICINGA_CERT_SERVICE_BA_USER: admin
+#      ICINGA_CERT_SERVICE_BA_PASSWORD: admin
+      ICINGA_CERT_SERVICE_API_USER: root
+      ICINGA_CERT_SERVICE_API_PASSWORD: icinga
+      ICINGA_CERT_SERVICE_SERVER: icinga2-master
+      ICINGA_CERT_SERVICE_PORT: 8080
+      ICINGA_CERT_SERVICE_PATH: /
+      MYSQL_HOST: database
+      MYSQL_ROOT_PASS: ${DATABASE_ROOT_PASSWORD}
+      IDO_PASSWORD: ${IDO_PASSWORD}
+      IDO_DATABASE_NAME: icinga2core
+      CARBON_HOST: carbon
+      REDIS_HOST: redis
+    ports:
+      - 5665:5665
+      - 8080
+    volumes:
+      - icinga:/var/lib/icinga2
+    networks:
+      - backend
+      - database
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100
+
+  icingaweb2:
+    restart: always
+    image: bodsch/docker-icingaweb2:2.6.1
+    container_name: icingaweb2
+    hostname: icingaweb2
+    environment:
+      MYSQL_HOST: database
+      MYSQL_ROOT_PASS: ${DATABASE_ROOT_PASSWORD}
+      IDO_PASSWORD: ${IDO_PASSWORD}
+      IDO_DATABASE_NAME: icinga2core
+      ICINGA2_HOST: cm-icinga2-master
+      ICINGA2_MASTER: cm-icinga2-master
+      ICINGA2_CMD_API_USER: icingaweb
+      ICINGA2_CMD_API_PASS: icingaweb
+      GRAPHITE_HOST: graphite
+      ICINGAWEB2_USERS: coremedia:coremedia,icinga:icinga
+      # LDAP_AD: 'true'
+      # LDAP_SERVER: ${LDAP_SERVER}
+      # LDAP_PORT: 389
+      # LDAP_BIND_DN: ${LDAP_BIND_DN}
+      # LDAP_BIND_PASSWORD: ${LDAP_BIND_PASSWORD}
+      # LDAP_BASE_DN: ${LDAP_BASE_DN}
+      # LDAP_FILTER: ${LDAP_FILTER}
+      # LDAP_ROLE_GROUPS: cm-common
+    depends_on:
+      - database
+      - cm-icinga2-master
+    links:
+      - database
+      - cm-icinga2-master:cm-icinga2-master
+    networks:
+      - frontend
+      - backend
+      - database
+
+  documentation:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-documentation:1810
+    container_name: documentation
+    hostname: documentation
+    ports:
+      - 8080
+    networks:
+      - frontend
+
+  cm-dashing:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-dashing:1810
+    container_name: cm-dashing
+    hostname: cm-dashing
+    environment:
+      ICINGA_MASTER: cm-icinga2-master
+      ICINGA_CERT_SERVICE_BA_USER: ${CERT_SERVICE_BA_USER}
+      ICINGA_CERT_SERVICE_BA_PASSWORD: ${CERT_SERVICE_BA_PASSWORD}
+      ICINGA_CERT_SERVICE_API_USER: dashing
+      ICINGA_CERT_SERVICE_API_PASSWORD: dashing
+      ICINGA_CERT_SERVICE_SERVER: nginx
+      ICINGA_CERT_SERVICE_PORT: 80
+      ICINGA_CERT_SERVICE_PATH: /cert-service
+      ICINGAWEB_URL: /icinga
+    depends_on:
+      - cm-icinga2-master
+      - nginx
+    links:
+      - cm-icinga2-master
+      - nginx
+    networks:
+      - frontend
+      - backend
+
+  # CoreMedia Glue and Logic
+  #
+  cm-rest-service:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-rest-service:1810
+    container_name: cm-rest-service
+    hostname: cm-rest-service
+    environment:
+      LOG_LEVEL: info
+      MYSQL_ROOT_PASS: ${DATABASE_ROOT_PASSWORD}
+    depends_on:
+      - redis
+      - database
+    links:
+      - redis
+      - database
+    networks:
+      - frontend
+      - backend
+      - database
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100
+
+  # single service
+  # use MQ to process data
+  cm-service-discovery:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-service-discovery:1810
+    container_name: cm-service-discover
+    hostname: cm-service-discover
+    environment:
+      LOG_LEVEL: info
+    depends_on:
+      - jolokia
+      - beanstalkd
+      - redis
+      - database
+    links:
+      - jolokia
+      - beanstalkd
+      - redis
+    networks:
+      - backend
+      - database
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100
+
+  # single service
+  # use MQ to process data
+  cm-data-collector:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-data-collector:1810
+    container_name: cm-data-collector
+    hostname: cm-data-collector
+    environment:
+      LOG_LEVEL: info
+    depends_on:
+      - jolokia
+      - beanstalkd
+      - redis
+      - database
+    links:
+      - jolokia
+      - beanstalkd
+      - redis
+    networks:
+      - backend
+      - database
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100
+
+  # single service
+  # use MQ to process data
+  cm-carbon-client:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-carbon-client:1810
+    container_name: cm-carbon-client
+    hostname: cm-carbon-client
+    environment:
+      LOG_LEVEL: info
+      # USE ONLY WITH AND EXTERNAL CARBON-WRITER!
+      GRAPHITE_HOST: carbon
+    depends_on:
+      - redis
+    links:
+      - redis
+    networks:
+      - backend
+      - database
+
+  # single service
+  # use MQ to process data
+  cm-grafana-client:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-grafana-client:1810
+    container_name: cm-grafana-client
+    hostname: cm-grafana-client
+    environment:
+      LOG_LEVEL: info
+      GRAFANA_HOST: nginx
+    depends_on:
+      - beanstalkd
+      - redis
+      - database
+    links:
+      - nginx
+      - beanstalkd
+      - redis
+      - database
+    networks:
+      - frontend
+      - backend
+      - database
+
+  # single service
+  # use MQ to process data
+  cm-icinga-client:
+    restart: always
+    image: moebius-registry.coremedia.vm/docker-cm-icinga-client:1810
+    container_name: cm-icinga-client
+    hostname: cm-icinga-client
+    environment:
+      LOG_LEVEL: info
+      ICINGA_MASTER: cm-icinga2-master
+      ICINGA_CERT_SERVICE_BA_USER: ${CERT_SERVICE_BA_USER}
+      ICINGA_CERT_SERVICE_BA_PASSWORD: ${CERT_SERVICE_BA_PASSWORD}
+      ICINGA_CERT_SERVICE_API_USER: dashing
+      ICINGA_CERT_SERVICE_API_PASSWORD: dashing
+      ICINGA_CERT_SERVICE_SERVER: nginx
+      ICINGA_CERT_SERVICE_PORT: 80
+      ICINGA_CERT_SERVICE_PATH: /cert-service
+      # ENABLE_NOTIFICATIONS: 'true'
+    depends_on:
+      - beanstalkd
+    links:
+      - beanstalkd
+      - nginx
+    networks:
+      - frontend
+      - backend
+      - database
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100

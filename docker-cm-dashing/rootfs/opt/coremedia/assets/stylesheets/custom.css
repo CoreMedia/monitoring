@@ -1,0 +1,24 @@
+
+html {
+  font-family: roboto;
+  font-size: 0.9em;
+}
+
+body {
+  color: #fff;
+  font-family: roboto;
+}
+
+
+#container {
+  padding-top: 0
+}
+
+#banner {
+  padding: 10px
+}
+
+#banner img {
+  width: 100px;
+  height: 100px;
+}

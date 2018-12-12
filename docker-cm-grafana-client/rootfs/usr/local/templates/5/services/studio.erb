@@ -1,0 +1,378 @@
+<%-
+  title = 'Studio'; descr = 'Studio'; app = 'STUDIO'; id = 10;
+%>
+{
+  "dashboard": {
+    "uid": "<%= uuid %>",
+    "id": null,
+    "title": "<%= slug %> - <%= title %>",
+    "tags": [ "<%= short_hostname %>","studio" ],
+    "schemaVersion": 12,
+    "version": 1,
+    "style": "dark",
+    "refresh": "1m",
+    "time": { "from": "now/d", "to": "now/d" },
+    "timepicker": {
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "now": true,
+      "refresh_intervals": [
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ]
+    },
+    "timezone": "browser",
+    "annotations": {
+      "list": []
+    },
+    "templating": {
+      "list": [
+        {
+          "query": "<%= graphite_identifier %>",
+          "name": "host",
+          "hide": 2,
+          "current": {
+            "text": "<%= slug %>",
+            "value": "<%= graphite_identifier %>"
+          },
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= slug %>"
+            }
+          ],
+          "type": "constant",
+          "label": null
+        }
+      ]
+    },
+    "sharedCrosshair": true,
+    "editable": true,
+    "hideControls": false,
+
+    "rows": [
+      {
+        "title": "",
+        "height": "10px",
+        "panels": [
+          {
+            "id": <%= id += 1 %>,
+            "title": "",
+            "type": "text",
+            "span": 5,
+            "mode": "html",
+            "transparent": true,
+            "content": "<h2 style=\"text-align:center; font-weight:500\"><%= descr %></h2>"
+          },
+          {
+            "id": <%= id += 1 %>,
+            "title": "",
+            "type": "text",
+            "span": 7,
+            "mode": "html",
+            "transparent": true,
+            "content": "<div style=\"text-align:center; font-size: 1.8em\">\n<div style=\"width:49%; float:left\"><a style=\"text-decoration:none\" href=\"<%= tomcat_dashboard_url %>?var-Application=<%= app %>\">Tomcat</a></div>\n  <div style=\"width:49%; float:left\"><a style=\"text-decoration:none\" href=\"<%= memorypools_dashboard_url %>?var-Application=<%= app %>\">Memory Pools</a></div>\n</div>\n"
+          }
+        ]
+      },
+
+      {
+        "title": "UAPI Cache",
+        "height": "150px",
+        "panels": [
+          {
+            "links": [],
+            "datasource": "graphite",
+            "pointradius": 5,
+            "percentage": false,
+            "decimals": 1,
+            "type": "graph",
+            "points": false,
+            "seriesOverrides": [
+              {
+                "color": "#BF1B00",
+                "yaxis": 2,
+                "alias": "percent"
+              }
+            ],
+            "grid": {
+              "threshold1": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)"
+            },
+            "tooltip": {
+              "value_type": "cumulative",
+              "ordering": "alphabetical",
+              "sort": 0,
+              "shared": true,
+              "msResolution": false
+            },
+            "xaxis": {
+              "show": true
+            },
+            "error": false,
+            "linewidth": 1,
+            "fill": 3,
+            "steppedLine": false,
+            "legend": {
+              "rightSide": true,
+              "show": true,
+              "min": false,
+              "current": true,
+              "avg": false,
+              "total": false,
+              "alignAsTable": true,
+              "values": true,
+              "max": false
+            },
+            "yaxes": [
+              {
+                "max": null,
+                "label": null,
+                "min": 0,
+                "format": "bytes",
+                "logBase": 1,
+                "show": true
+              },
+              {
+                "logBase": 1,
+                "show": true,
+                "min": null,
+                "format": "none",
+                "label": "percent",
+                "max": "110"
+              }
+            ],
+            "stack": false,
+            "nullPointMode": "connected",
+            "editable": true,
+            "lines": true,
+            "span": 12,
+            "isNew": true,
+            "targets": [
+              {
+                "refId": "A",
+                "textEditor": false,
+                "target": "alias(aliasSub(carbon-writer.$host.STUDIO.CapConnection.heap.cache.size, '(.*)-', ''), 'max')"
+              },
+              {
+                "refId": "B",
+                "textEditor": false,
+                "target": "alias(aliasSub(carbon-writer.$host.STUDIO.CapConnection.heap.cache.used, '(.*)-', ''), 'used')"
+              },
+              {
+                "refId": "C",
+                "target": "alias(carbon-writer.$host.STUDIO.CapConnection.heap.cache.used_percent, 'percent')",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "renderer": "flot",
+            "aliasColors": {},
+            "timeShift": null,
+            "id": <%= id += 1 %>,
+            "bars": false,
+            "title": "UAPI Cache"
+          }
+        ]
+      },
+      {
+        "title": "Blob Cache",
+        "height": "150px",
+        "panels": [
+          {
+            "id": <%= id += 1 %>,
+            "title": "BlobCache",
+            "bars": false,
+            "aliasColors": {},
+            "timeShift": null,
+            "lines": true,
+            "span": 12,
+            "isNew": true,
+            "renderer": "flot",
+            "timeFrom": null,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(carbon-writer.$host.STUDIO.CapConnection.blob.cache.size, 'max')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "textEditor": false,
+                "target": "alias(carbon-writer.$host.STUDIO.CapConnection.blob.cache.used, 'used')"
+              },
+              {
+                "target": "alias(carbon-writer.$host.STUDIO.CapConnection.blob.cache.used_percent, 'percent')",
+                "textEditor": false,
+                "refId": "C"
+              }
+            ],
+            "nullPointMode": "connected",
+            "stack": false,
+            "editable": true,
+            "steppedLine": false,
+            "legend": {
+              "show": true,
+              "rightSide": true,
+              "avg": false,
+              "current": true,
+              "min": false,
+              "total": false,
+              "alignAsTable": true,
+              "values": true,
+              "max": false
+            },
+            "yaxes": [
+              {
+                "show": true,
+                "logBase": 1,
+                "min": null,
+                "format": "bytes",
+                "max": null
+              },
+              {
+                "show": true,
+                "logBase": 1,
+                "max": "110",
+                "label": "percent",
+                "min": null,
+                "format": "none"
+              }
+            ],
+            "error": false,
+            "fill": 3,
+            "linewidth": 1,
+            "decimals": 1,
+            "type": "graph",
+            "seriesOverrides": [
+              {
+                "alias": "percent",
+                "yaxis": 2,
+                "color": "#BF1B00"
+              }
+            ],
+            "points": false,
+            "tooltip": {
+              "value_type": "cumulative",
+              "ordering": "alphabetical",
+              "sort": 0,
+              "shared": true,
+              "msResolution": false
+            },
+            "grid": {
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold1": null,
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "xaxis": {
+              "show": true
+            },
+            "links": [],
+            "datasource": "graphite",
+            "pointradius": 5,
+            "percentage": false
+          }
+        ]
+      },
+      {
+        "title": "Lightweight Sessions",
+        "height": "150px",
+        "panels": [
+          {
+            "nullPointMode": "connected",
+            "stack": false,
+            "editable": true,
+            "span": 12,
+            "isNew": true,
+            "timeFrom": null,
+            "renderer": "flot",
+            "targets": [
+              {
+                "textEditor": false,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.STUDIO.CapConnection.su_sessions.sessions, '(.*)-', ''))",
+                "refId": "A"
+              }
+            ],
+            "lines": true,
+            "timeShift": null,
+            "aliasColors": {},
+            "title": "Lightweight Sessions",
+            "bars": false,
+            "id": <%= id += 1 %>,
+            "datasource": "graphite",
+            "percentage": false,
+            "pointradius": 5,
+            "links": [],
+            "tooltip": {
+              "value_type": "cumulative",
+              "msResolution": false,
+              "shared": true,
+              "sort": 0
+            },
+            "grid": {
+              "threshold1": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)"
+            },
+            "xaxis": {
+              "show": true
+            },
+            "type": "graph",
+            "decimals": 0,
+            "seriesOverrides": [],
+            "points": false,
+            "error": false,
+            "linewidth": 1,
+            "fill": 3,
+            "legend": {
+              "max": false,
+              "total": false,
+              "alignAsTable": true,
+              "values": true,
+              "current": true,
+              "avg": false,
+              "min": false,
+              "show": true,
+              "rightSide": true
+            },
+            "yaxes": [
+              {
+                "max": null,
+                "label": null,
+                "format": "none",
+                "min": "0",
+                "show": true,
+                "logBase": 1
+              },
+              {
+                "max": null,
+                "label": null,
+                "min": null,
+                "format": "short",
+                "show": false,
+                "logBase": 1
+              }
+            ],
+            "steppedLine": false
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CoreMedia Monitoring Toolbox</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/web/css/uikit.min.css" />
+    <link rel="stylesheet" type="text/css" href="/web/css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="/web/css/fonts.css">
+  </head>
+
+  <body>
+    <!--HEADER-->
+    <header id="top-head" class="uk-position-fixed">
+      <div class="uk-container uk-container-expand uk-background-primary">
+        <nav class="uk-navbar uk-light" data-uk-navbar="mode:click">
+          <div class="uk-navbar-left">
+<!--            <span id="cm_logo"></span>-->
+            <h1 id="cm_headline">CoreMedia Monitoring Toolbox</h1>
+          </div>
+          <div class="uk-navbar-right">
+<!--
+            <ul class="uk-navbar-nav">
+              <li>
+                <a href="#" data-uk-icon="icon:user"></a>
+                <div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left">
+                  <ul class="uk-nav uk-navbar-dropdown-nav">
+                    <li class="uk-nav-header">YOUR ACCOUNT</li>
+                    <li><a href="#"><span data-uk-icon="icon: info"></span> Summary</a></li>
+                    <li><a href="#"><span data-uk-icon="icon: refresh"></span> Edit</a></li>
+                    <li><a href="#"><span data-uk-icon="icon: settings"></span> Configuration</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#"><span data-uk-icon="icon: image"></span> Your Pictures</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#"><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li><a href="#" data-uk-icon="icon: server">Icinga2</a></li>
+              <li><a href="#" data-uk-icon="icon: cog"></a></li>
+              <li><a href="#" data-uk-icon="icon: settings"></a></li>
+              <li><a href="#" data-uk-icon="icon: cog"></a></li>
+              <li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a></li>
+            </ul>
+-->
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!--/HEADER-->
+    <!-- LEFT BAR -->
+    <aside id="left-col" class="uk-light uk-visible@m">
+
+      <div class="bar-content uk-position-relative">
+        <ul class="uk-nav-default uk-nav-parent-icon" data-uk-nav>
+          <li class="uk-nav-header">monitoring Tools</li>
+<!--
+          <li><a href="/icinga" target="_blank"><span class="uk-margin-small-right" data-uk-icon="icon: image"></span> Icinga2</a></li>
+          <li><a href="/grafana/" target="_blank"><span class="uk-margin-small-right" data-uk-icon="icon: info"></span> Grafana</a></li>
+          <li class="uk-nav-divider"></li>
+          <li><a href="/dashing" target="_blank"><span class="uk-margin-small-right"></span> Dashboard</a></li>
+          <li><a href="/doc/" target="_blank"><span class="uk-margin-small-right" data-uk-icon="icon: sign-in"></span> Documentation</a></li>
+-->
+          <li class="uk-nav-divider"></li>
+          <li>
+            <a href="/icinga" target="_blank">
+              <div class="button button_icinga" uk-tooltip="pos: right; title: icinga2 login page"></div>
+            </a>
+          </li>
+          <li>
+            <a href="/grafana/" target="_blank">
+              <div class="button button_grafana" uk-tooltip="pos: right; title: grafana login page"></div>
+            </a>
+          </li>
+          <li>
+            <a href="/dashing" target="_blank">
+              <div class="button button_dashboard" uk-tooltip="pos: right; title: general dashboard"></div>
+            </a>
+          </li>
+          <li>
+            <a href="/doc/" target="_blank">
+              <div class="button button_documentation" uk-tooltip="pos: right; title: operation guide and documentation"></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="uk-position-bottom bar-bottom">
+        <ul class="uk-subnav uk-flex uk-flex-right uk-child-width-1-6" data-uk-grid>
+          <li>
+            <a href="#" id="about" class="uk-icon-link" data-uk-tooltip="About" data-uk-icon="icon: info"></a>
+          </li>
+        </ul>
+      </div>
+
+    </aside>
+    <!-- /LEFT BAR -->
+    <!-- CONTENT -->
+    <div id="content" data-uk-height-viewport="expand: true">
+
+      <div class="uk-container uk-container-expand">
+
+        <!-- panel -->
+        <div class="uk-width-1-1">
+          <form class="uk-form-small uk-form-horizontal uk-grid-small uk-grid" uk-grid="">
+            <div class="uk-width-1-2@s uk-inline uk-first-column">
+              <span class="uk-form-icon uk-icon cm-form-icon" uk-icon="icon: laptop"></span>
+              <input id="add-host-text" class="uk-input" type="text" placeholder="please use a hostname or FQDN to monitor a CoreMedia testsystem">
+            </div>
+            <div class="uk-width-1-4@s">
+              <button id="add-host-button" class="uk-button uk-button-primary">add</button>
+            </div>
+<!--
+            <div class="uk-width-1-4@s">
+              <label class="cm-label"><input class="uk-checkbox cm-checkbox" type="checkbox"> force</label>
+            </div>
+-->
+          </form>
+        </div>
+        <!-- panel -->
+        <hr>
+        <div class="uk-grid uk-grid-small uk-container-center uk-grid-match" data-uk-grid>
+          <!-- panel -->
+          <div class="uk-width-1-1">
+            <div class="uk-card uk-card-default uk-card-small uk-card-hover">
+              <div class="uk-card-header">
+                <div class="uk-grid uk-grid-small">
+                  <div class="uk-width-auto"><h4 class="uk-margin-remove-bottom">Hosts in Monitoring</h4></div>
+<!--
+                  <div class="uk-width-expand uk-text-right">
+                    <a href="#" class="uk-icon-link uk-margin-small-right" data-uk-icon="icon: move"></a>
+                    <a href="#" class="uk-icon-link uk-margin-small-right" data-uk-icon="icon: cog"></a>
+                    <a href="#" class="uk-icon-link" data-uk-icon="icon: close"></a>
+                  </div>
+-->
+                </div>
+              </div>
+              <div class="uk-card-body">
+                <div class="uk-overflow-auto">
+                <table id="monitoring-hosts" class="uk-table uk-table-hover uk-table-divider uk-table-middle">
+                  <thead>
+                    <tr>
+                      <th class="uk-table-shrink"></th>
+                      <th>Name</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              </div>
+            </div>
+          </div>
+          <!-- /panel -->
+        </div>
+<!--
+        <footer class="uk-section uk-section-small uk-text-right">
+          <hr>
+          <span class="uk-text-muted uk-text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.</span>
+        </footer>
+-->
+      </div>
+    </div>
+    <!-- /CONTENT -->
+
+
+    <!-- MODAL -->
+    <div id="modal-overflow" uk-modal></div>
+    <!-- /MODAL -->
+
+    <!-- SPINNER -->
+    <div id="spinner" class="uk-position-center">
+      <div uk-spinner></div>
+    </div>
+    <!-- /SPINNER -->
+
+    <script src="/web/js/uikit.min.js"></script>
+    <script src="/web/js/uikit-icons.min.js"></script>
+<!--     <script src="/web/js/fontawesome-all.min"></script> -->
+    <script src="/web/js/jquery-3.3.1.min.js"></script>
+    <script src="/web/js/cm-monitoring.js"></script>
+  </body>
+</html>

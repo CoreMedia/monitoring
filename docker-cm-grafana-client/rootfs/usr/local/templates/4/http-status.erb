@@ -1,0 +1,539 @@
+ {
+  "dashboard": {
+    "id": null,
+    "title": "<%= grafana_title %>",
+    "originalTitle": "<%= grafana_title %>",
+    "tags": [ "<%= short_hostname %>", "http" ],
+    "style": "dark",
+    "timezone": "browser",
+    "editable": true,
+    "hideControls": false,
+    "sharedCrosshair": true,
+    "rows": [
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "25px",
+        "panels": [
+          {
+            "content": "<h2><center>HTTP / Apache</center></h2>",
+            "editable": true,
+            "error": false,
+            "id": 1,
+            "isNew": true,
+            "links": [],
+            "mode": "html",
+            "span": 12,
+            "title": "",
+            "transparent": true,
+            "type": "text"
+          }
+        ],
+        "title": "New row"
+      },
+      {
+        "collapse": false,
+        "height": "350px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "graphite",
+            "fill": 1,
+            "height": "",
+            "id": 1,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.closing)"
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.dns)"
+              },
+              {
+                "hide": true,
+                "refId": "C",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.graceful)"
+              },
+              {
+                "refId": "D",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.idle)"
+              },
+              {
+                "refId": "E",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.keepalive)"
+              },
+              {
+                "hide": true,
+                "refId": "F",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.logging)"
+              },
+              {
+                "refId": "G",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.open)"
+              },
+              {
+                "refId": "H",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.reading)"
+              },
+              {
+                "refId": "I",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.sending)"
+              },
+              {
+                "refId": "J",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.starting)"
+              },
+              {
+                "refId": "K",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.scoreboard.waiting)"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Apache Workers",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ],
+        "repeat": null,
+        "repeatIteration": null,
+        "repeatRowId": null,
+        "showTitle": false,
+        "title": "Apache Workers",
+        "titleSize": "h6"
+      },
+      {
+        "collapse": false,
+        "height": "150",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "graphite",
+            "fill": 1,
+            "id": 2,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "req. / sec.",
+                "yaxis": 2
+              }
+            ],
+            "spaceLength": 10,
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(carbon-writer.$host.HTTP_STATUS.bytes.per_req, 'per request')"
+              },
+              {
+                "refId": "B",
+                "target": "alias(perSecond(carbon-writer.$host.HTTP_STATUS.bytes.per_sec), 'per second')"
+              },
+              {
+                "refId": "C",
+                "target": "alias(perSecond(carbon-writer.$host.HTTP_STATUS.requests.per_sec), 'req. / sec.')"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "transfered bytes",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "bytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ],
+        "repeat": null,
+        "repeatIteration": null,
+        "repeatRowId": null,
+        "showTitle": false,
+        "title": "Apache Requests",
+        "titleSize": "h6"
+      },
+      {
+        "collapse": false,
+        "height": "150",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "fill": 1,
+            "id": 3,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.workers.busy)"
+              },
+              {
+                "refId": "B",
+                "target": "aliasByMetric(carbon-writer.$host.HTTP_STATUS.workers.idle)"
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Apache Workers",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ],
+        "repeat": null,
+        "repeatIteration": null,
+        "repeatRowId": null,
+        "showTitle": false,
+        "title": "Apache Workers",
+        "titleSize": "h6"
+      },
+      {
+        "collapse": false,
+        "height": 174,
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fill": 1,
+            "id": 14,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "hideEmpty": false,
+              "hideZero": false,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 1,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByNode(aliasSub(icinga2.$icinga_host.services.HTTP:_*.http.perfdata.time.value, 'HTTP:_(.*)_$icinga_host', '\\1'), 3)",
+                "textEditor": true
+              }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Response",
+            "tooltip": {
+              "shared": true,
+              "sort": 0,
+              "value_type": "individual"
+            },
+            "transparent": false,
+            "type": "graph",
+            "xaxis": {
+              "buckets": null,
+              "mode": "time",
+              "name": null,
+              "show": true,
+              "values": []
+            },
+            "yaxes": [
+              {
+                "decimals": 2,
+                "format": "ms",
+                "label": "",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ],
+        "repeat": null,
+        "repeatIteration": null,
+        "repeatRowId": null,
+        "showTitle": false,
+        "title": "Dashboard Row",
+        "titleSize": "h6"
+      }
+    ],
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timepicker": {
+      "now": true,
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "value": "<%= graphite_identifier %>",
+            "text": "<%= graphite_identifier %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= graphite_identifier %>"
+            }
+          ],
+          "query": "<%= graphite_identifier %>",
+          "type": "constant"
+        },
+        {
+          "current": {
+            "value": "<%= icinga_identifier %>",
+            "text": "<%= icinga_identifier %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "icinga_host",
+          "options": [
+            {
+              "value": "<%= icinga_identifier %>",
+              "text": "<%= icinga_identifier %>"
+            }
+          ],
+          "query": "<%= icinga_identifier %>",
+          "type": "constant"
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "name": "created",
+          "enable": true,
+          "iconColor": "rgb(93, 227, 12)",
+          "datasource": "events",
+          "tags": "$host created&set=intersection"
+        },
+        {
+          "name": "Load Tests",
+          "enable": true,
+          "iconColor": "rgb(26, 196, 220)",
+          "datasource": "events",
+          "tags": "$host loadtest&set=intersection"
+        },
+        {
+          "name": "Deployments",
+          "enable": true,
+          "iconColor": "rgb(176, 40, 253)",
+          "datasource": "events",
+          "tags": "$host deployment&set=intersection"
+        }
+      ]
+    },
+    "refresh": "1m",
+    "schemaVersion": 12,
+    "version": 4,
+    "links": []
+  }
+}

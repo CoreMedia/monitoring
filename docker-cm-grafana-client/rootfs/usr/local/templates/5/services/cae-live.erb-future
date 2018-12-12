@@ -1,0 +1,451 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "<%= uuid %>",
+    "title": "<%= slug %> - Delivery CAE",
+    "tags": [ "<%= short_hostname %>", "cae" ],
+    "version": 1,
+    "editable": true,
+    "style": "dark",
+    "schemaVersion": 12,
+    "sharedCrosshair": true,
+    "hideControls": false,
+    "refresh": "1m",
+    "annotations": {
+      "list": []
+    },
+    "timezone": "browser",
+    "time": {
+      "to": "now",
+      "from": "now-3h"
+    },
+    "templating": {
+      "list": [
+        {
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= slug %>"
+            }
+          ],
+          "type": "constant",
+          "query": "<%= graphite_identifier %>",
+          "name": "host",
+          "label": null,
+          "current": {
+            "text": "<%= slug %>",
+            "value": "<%= graphite_identifier %>"
+          },
+          "hide": 2
+        }
+      ]
+    },
+    "timepicker": {
+      "now": true,
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ]
+    },
+    "gnetId": null,
+    "links": [],
+    "panels": [
+<%-
+  id = 10
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "gridPos": { "x": 0, "y": 0, "w": 24, "h": 2 },
+        "title": "",
+        "content": "<h3><center><a href=\"<%= tomcat_dashboard_url %>?var-Application=CAE_LIVE\">Tomcat</a></center></h3>",
+        "transparent": true,
+        "mode": "html",
+        "type": "text"
+      },
+      {
+        "id": <%= id += 1 %>,
+        "gridPos": { "x": 0, "y": 2, "w": 24, "h": 2 },
+        "title": "",
+        "content": "<h2><center>CAE Live</center></h2>",
+        "transparent": true,
+        "mode": "html",
+        "type": "text"
+      },
+      {
+        "title": "UAPI Cache",
+        "id": <%= id += 1 %>,
+        "gridPos": { "x": 0, "y": 4, "w": 24, "h": 4 },
+        "links": [],
+        "lines": true,
+        "yaxes": [
+          {
+            "format": "bytes",
+            "logBase": 1,
+            "max": null,
+            "min": 0,
+            "show": true,
+            "label": null
+          },
+          {
+            "min": null,
+            "show": true,
+            "label": "percent",
+            "format": "none",
+            "logBase": 1,
+            "max": "110"
+          }
+        ],
+        "xaxis": {
+          "show": true
+        },
+        "grid": {
+          "threshold1": null,
+          "threshold2": null,
+          "threshold1Color": "rgba(216, 200, 27, 0.27)",
+          "threshold2Color": "rgba(234, 112, 112, 0.22)"
+        },
+        "steppedLine": false,
+        "pointradius": 5,
+        "percentage": false,
+        "timeFrom": null,
+        "decimals": 1,
+        "seriesOverrides": [
+          {
+            "color": "#BF1B00",
+            "alias": "percent",
+            "yaxis": 2,
+            "fill": 4
+          }
+        ],
+        "error": false,
+        "points": false,
+        "datasource": "graphite",
+        "timeShift": null,
+        "targets": [
+          {
+            "textEditor": false,
+            "refId": "A",
+            "target": "alias(aliasSub(carbon-writer.$host.CAE_LIVE.CapConnection.heap.cache.size, '(.*)-', ''), 'max')"
+          },
+          {
+            "target": "alias(aliasSub(carbon-writer.$host.CAE_LIVE.CapConnection.heap.cache.used, '(.*)-', ''), 'used')",
+            "textEditor": false,
+            "refId": "B"
+          },
+          {
+            "textEditor": false,
+            "refId": "C",
+            "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.heap.cache.used_percent, 'percent')"
+          }
+        ],
+        "span": 12,
+        "isNew": true,
+        "bars": false,
+        "renderer": "flot",
+        "aliasColors": {},
+        "linewidth": 1,
+        "editable": true,
+        "fill": 3,
+        "stack": false,
+        "legend": {
+          "min": false,
+          "avg": false,
+          "rightSide": true,
+          "values": true,
+          "alignAsTable": true,
+          "max": false,
+          "current": true,
+          "show": true,
+          "total": false
+        },
+        "nullPointMode": "connected",
+        "type": "graph",
+        "tooltip": {
+          "sort": 0,
+          "value_type": "cumulative",
+          "ordering": "alphabetical",
+          "shared": true,
+          "msResolution": false
+        }
+      },
+      {
+        "title": "BlobCache",
+        "id": <%= id += 1 %>,
+        "gridPos": { "x": 0, "y": 8, "w": 24, "h": 4 },
+        "timeShift": null,
+        "datasource": "graphite",
+        "targets": [
+          {
+            "refId": "A",
+            "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.blob.cache.size, 'max')"
+          },
+          {
+            "refId": "B",
+            "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.blob.cache.used, 'used')"
+          },
+          {
+            "refId": "C",
+            "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.blob.cache.used_percent, 'percent')"
+          }
+        ],
+        "bars": false,
+        "span": 12,
+        "isNew": true,
+        "linewidth": 1,
+        "aliasColors": {},
+        "editable": true,
+        "renderer": "flot",
+        "type": "graph",
+        "tooltip": {
+          "msResolution": false,
+          "ordering": "alphabetical",
+          "shared": true,
+          "sort": 0,
+          "value_type": "cumulative"
+        },
+        "nullPointMode": "connected",
+        "stack": false,
+        "legend": {
+          "total": false,
+          "show": true,
+          "current": true,
+          "values": true,
+          "alignAsTable": true,
+          "max": false,
+          "rightSide": true,
+          "avg": false,
+          "min": false
+        },
+        "fill": 3,
+        "lines": true,
+        "yaxes": [
+          {
+            "logBase": 1,
+            "format": "bytes",
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "max": "110",
+            "format": "none",
+            "logBase": 1,
+            "show": true,
+            "label": "percent",
+            "min": null
+          }
+        ],
+        "links": [],
+        "pointradius": 5,
+        "steppedLine": false,
+        "xaxis": {
+          "show": true
+        },
+        "grid": {
+          "threshold2Color": "rgba(234, 112, 112, 0.22)",
+          "threshold1Color": "rgba(216, 200, 27, 0.27)",
+          "threshold2": null,
+          "threshold1": null
+        },
+        "percentage": false,
+        "points": false,
+        "seriesOverrides": [
+          {
+            "color": "#BF1B00",
+            "alias": "percent",
+            "yaxis": 2,
+            "fill": 4
+          }
+        ],
+        "error": false,
+        "decimals": 1,
+        "timeFrom": null
+      },
+      {
+        "title": "Lightweight Sessions",
+        "id": <%= id += 1 %>,
+        "gridPos": { "x": 0, "y": 12, "w": 24, "h": 4 },
+        "xaxis": {
+          "show": true
+        },
+        "grid": {
+          "threshold2Color": "rgba(234, 112, 112, 0.22)",
+          "threshold2": null,
+          "threshold1": null,
+          "threshold1Color": "rgba(216, 200, 27, 0.27)"
+        },
+        "steppedLine": false,
+        "pointradius": 5,
+        "links": [],
+        "yaxes": [
+          {
+            "show": true,
+            "label": null,
+            "min": "0",
+            "max": null,
+            "format": "none",
+            "logBase": 1
+          },
+          {
+            "show": false,
+            "label": null,
+            "min": null,
+            "max": null,
+            "format": "short",
+            "logBase": 1
+          }
+        ],
+        "lines": true,
+        "id": 14,
+        "timeFrom": null,
+        "error": false,
+        "seriesOverrides": [],
+        "decimals": 0,
+        "points": false,
+        "percentage": false,
+        "span": 12,
+        "targets": [
+          {
+            "target": "aliasByMetric(aliasSub(carbon-writer.$host.CAE_LIVE.CapConnection.su_sessions.sessions, '(.*)-', ''))",
+            "refId": "A",
+            "textEditor": false
+          }
+        ],
+        "isNew": true,
+        "bars": false,
+        "datasource": "graphite",
+        "timeShift": null,
+        "fill": 3,
+        "stack": false,
+        "legend": {
+          "min": false,
+          "avg": false,
+          "rightSide": true,
+          "max": true,
+          "alignAsTable": true,
+          "values": true,
+          "current": true,
+          "show": true,
+          "total": false
+        },
+        "type": "graph",
+        "nullPointMode": "connected",
+        "tooltip": {
+          "value_type": "cumulative",
+          "sort": 0,
+          "shared": true,
+          "msResolution": false
+        },
+        "renderer": "flot",
+        "linewidth": 1,
+        "editable": true,
+        "aliasColors": {}
+      },
+      {
+        "title": "DataView Factory",
+        "id": <%= id += 1 %>,
+        "gridPos": { "x": 0, "y": 16, "w": 24, "h": 7 },
+        "xaxis": {
+          "show": true
+        },
+        "grid": {
+          "threshold2Color": "rgba(234, 112, 112, 0.22)",
+          "threshold1Color": "rgba(216, 200, 27, 0.27)",
+          "threshold1": null,
+          "threshold2": null
+        },
+        "steppedLine": false,
+        "pointradius": 5,
+        "links": [],
+        "lines": true,
+        "yaxes": [
+          {
+            "min": null,
+            "label": null,
+            "show": true,
+            "logBase": 1,
+            "format": "none",
+            "max": null
+          },
+          {
+            "max": null,
+            "format": "short",
+            "logBase": 1,
+            "label": null,
+            "show": false,
+            "min": null
+          }
+        ],
+        "id": 15,
+        "timeFrom": null,
+        "decimals": 0,
+        "seriesOverrides": [
+          {
+            "alias": "lookups",
+            "legend": false,
+            "lines": false
+          },
+          {
+            "alias": "localTime",
+            "legend": false,
+            "lines": false
+          }
+        ],
+        "error": false,
+        "points": false,
+        "percentage": false,
+        "span": 12,
+        "targets": [
+          {
+            "refId": "A",
+            "target": "aliasByMetric(aliasSub(carbon-writer.$host.CAE_LIVE.DataViewFactory.*, '(.*)-', ''))"
+          }
+        ],
+        "isNew": true,
+        "bars": false,
+        "datasource": "graphite",
+        "timeShift": null,
+        "fill": 3,
+        "stack": false,
+        "legend": {
+          "avg": false,
+          "rightSide": true,
+          "min": false,
+          "max": false,
+          "values": true,
+          "alignAsTable": true,
+          "show": true,
+          "current": true,
+          "total": false
+        },
+        "type": "graph",
+        "nullPointMode": "connected",
+        "tooltip": {
+          "shared": true,
+          "msResolution": false,
+          "value_type": "cumulative",
+          "sort": 0
+        },
+        "renderer": "flot",
+        "linewidth": 1,
+        "editable": true,
+        "aliasColors": {}
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+build: 
+go install service-discovery/proxy
+go build -ldflags="-s -w"
+

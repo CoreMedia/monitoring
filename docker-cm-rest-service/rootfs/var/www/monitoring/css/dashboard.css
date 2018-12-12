@@ -1,0 +1,182 @@
+
+/**
+ *  overwrites for CoreMedia specific Style
+ */
+.uk-background-primary {
+  background-color: #0a4282;
+}
+
+.uk-card-default {
+  background-color: #f1f1f1;
+}
+
+.uk-card-default.uk-card-hover:hover {
+  background-color: #f1f1f1;
+}
+
+.uk-table-hover tbody tr:hover, .uk-table-hover > tr:hover {
+  background: #e6e6e6;
+}
+
+.uk-button-primary {
+  background-color: #0a4282;
+}
+
+.uk-modal-dialog, .uk-modal-footer {
+   background-color: #f1f1f1;
+}
+
+.uk-button-default {
+  border: 1px solid #3d4242;
+}
+
+#top-head {
+  z-index: 9;
+  top: 0;
+  left:0;
+  right:0;
+}
+
+#cm_logo {
+  background:url(/web/img/cm_logo_white_small.svg) left top;
+  float: left;
+  width: 80px;
+  display: block;
+  height: 80px;
+  margin-top: 0px;
+  margin-left: 45px;
+}
+
+#cm_headline {
+  position: relative;
+  left: 244px;
+  margin-top: 20px;
+}
+
+/* Left bar */
+#left-col {
+  position: fixed;
+  left: 0;
+  /* Height of the navbar default */
+  top:90px;
+  bottom:0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #0a4282;
+  width: 280px;
+  z-index:1;
+}
+#content {
+  margin-left: 280px;
+  margin-top: 80px;
+  padding: 30px 0 0 0;
+  background-color: #f1f1f1;
+  margin-left: 0;
+  -webkit-transition: margin 0.3s cubic-bezier(.4,0,.2,1);
+  transition: margin 0.3s cubic-bezier(.4,0,.2,1);
+}
+@media screen and (min-width: 960px){
+  #content {
+    margin-left: 280px;
+  }
+}
+/* Some space in the left bar */
+.bar-content {
+  padding: 30px;
+}
+/* Remove margin top from nav dropdown */
+#top-head [class*="uk-navbar-dropdown-bottom"] {
+  margin-top: 0;
+}
+.profile-bar {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 1rem 30px;
+}
+.bar-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 15px 0;
+  display:none;
+}
+@media screen and (min-height: 730px){
+  .bar-bottom {
+    display:block;
+  }
+}
+.profile-img {
+  width: 65px;
+  border: 3px solid rgba(0,0,0,0.1);
+}
+/* Search nav */
+.search-field {
+  width: 160px;
+  -webkit-transition: all 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+/* Search Effect on focus */
+.search-field:focus {
+  width: 260px;
+  border-color: #fff !important;
+}
+/* Remove shadow from card */
+.uk-card {
+  box-shadow: none;
+}
+.uk-heading-primary {
+  letter-spacing: -0.028em;
+  font-weight: 300;
+}
+/* Smooth shadow transition in card */
+.uk-card {
+  -webkit-transition: box-shadow 0.5s ease-out;
+  transition: box-shadow 0.5s ease-out;
+}
+
+.button {
+  background-repeat: no-repeat;
+  height: 130px;
+  background-size: 100%;
+  margin-top:1.2em;
+}
+
+.button_icinga {
+  background-image: url('/web/img/icinga2_logo.png');
+/*   background-size: 100%; */
+  height:100px;
+}
+.button_grafana {
+  background-image: url('/web/img/grafana_logo_200.png');
+/*   background-size: 100%; */
+  height:100px;
+}
+.button_documentation {
+  background-image: url('/web/img/opguide_logo_200.png');
+/*   background-size: 100%; */
+}
+.button_dashboard {
+  background-image: url('/web/img/dashboard_logo_200.png');
+/*   background-size: 100%; */
+}
+
+
+/*
+.button_dashboard {
+  background-image: url(/web/img/dashboard_logo_200.png);
+  background-size: 100%;
+  height: 130px;
+}
+*/
+
+.cm-checkbox {
+  height: 35px;
+  width: 35px;
+}
+
+.cm-label {
+  top: 6px;
+  position: relative;
+}
+
+.cm-form-icon {
+  padding-left: 15px;
+}
+

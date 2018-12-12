@@ -1,0 +1,74 @@
+<script type='text/javascript'>
+$(function() {
+  // These settings override the defaults set in application.coffee. You can do this on a per dashboard basis.
+  Dashing.widget_base_dimensions = [250,250]
+  Dashing.numColumns = 6
+});
+</script>
+
+<% content_for :title do %>Icinga 2<% end %>
+<div class="gridster">
+  <ul>
+    <!-- Statistics -->
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-view="Clock"></div>
+    </li>
+    <li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-stats" data-view="List" data-unordered="true" data-title="Statistics"></div>
+    </li>
+    <!-- Problems -->
+    <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-host-meter" data-view="Meter" data-title="Host Problems" data-min="0" data-max="100"></div>
+    </li>
+    <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-service-meter" data-view="Meter" data-title="Service Problems" data-min="0" data-max="100"></div>
+    </li>
+    <!-- Handled -->
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="handled-stats" data-view="List" data-unordered="true" data-title="Handled"></div>
+    </li>
+
+    <!-- Down, Critical, Warning, Unknown -->
+
+    <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-host-problems-down" data-view="Simplemon" data-title="Unhandled Hosts"></div>
+    </li>
+    <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-service-problems-critical" data-view="Simplemon" data-title="Unhandled Services"></div>
+    </li>
+    <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-service-problems-warning" data-view="Simplemon" data-title="Unhandled Services"></div>
+    </li>
+    <li data-row="2" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-service-problems-unknown" data-view="Simplemon" data-title="Unhandled Services"></div>
+    </li>
+
+    <li data-row="3" data-col="1" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-hosts" data-view="Icinga2" data-title="Icinga2 Hosts"></div>
+    </li>
+
+    <li data-row="3" data-col="2" data-sizex="1" data-sizey="1">
+      <div data-id="icinga-services" data-view="Icinga2" data-title="Icinga2 Services"></div>
+    </li>
+
+
+    <!-- Takes two rows for all service problems by severity -->
+
+    <li data-row="2" data-col="5" data-sizex="1" data-sizey="2">
+      <div data-id="icinga-severity" data-view="List" data-unordered="true" data-title="Problems"></div>
+    </li>
+
+
+
+    <!-- Icinga Web 2 iFrame -->
+<!--
+    <li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
+      <div data-id="iframe" data-view="Iframe" data-url="%ICINGAWEB_URL%/monitoring/list/hosts?host_problem=1&sort=host_severity&showFullscreen&showCompact"></div>
+    </li>
+    <li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
+      <div data-id="iframe" data-view="Iframe" data-url="%ICINGAWEB_URL%/monitoring/list/services?service_problem=1&sort=service_severity&dir=desc&showFullscreen&showCompact"></div>
+    </li>
+-->
+  </ul>
+
+</div>

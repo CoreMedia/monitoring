@@ -1,0 +1,12 @@
+PORTS = \
+  --publish 3031:3030
+
+VOLUMES = \
+  --volume /var/log/docker:/var/log
+
+ENV = \
+  --env ICINGA_HOST="192.168.33.5" \
+  --env ICINGA_API_USER="root" \
+  --env ICINGA_API_PASSWORD="icinga" \
+  --env ICINGAWEB_URL="http://192.168.33.5/icingaweb2"
+#  --env PROXY_PATH="/dashing"

@@ -1,0 +1,234 @@
+---
+version: '3.3'
+
+networks:
+  mon:
+
+volumes:
+  database:
+    driver: local
+  carbon:
+    driver: local
+  icinga:
+    driver: local
+
+services:
+
+  database:
+    restart: always
+    image: bodsch/docker-mysql:10.1.28-r1
+    container_name: database
+    hostname: database
+    environment:
+      MYSQL_SYSTEM_USER: root
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - database:/srv
+    networks:
+      - mon
+
+  memcached:
+    restart: always
+    image: memcached:1.5.4-alpine
+    container_name: memcached
+    hostname: memcached
+    privileged: true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    command: "--listen=0.0.0.0 --memory-limit=8"
+    networks:
+      - mon
+
+  nginx:
+    restart: always
+    image: bodsch/docker-nginx:1.12.2-r1
+    container_name: nginx
+    hostname: nginx
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - graphite
+      - grafana
+      - icingaweb2
+      - markdown-service
+    links:
+      - grafana
+      - icingaweb2
+      - cm-icinga2-master:icinga2-master
+      - markdown-service
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/www/entry-page:/var/www/entry-page
+      - ../../docker-cm-data/rootfs/data/etc/nginx/sites-enabled/01-data-visulization.conf:/etc/nginx/sites-enabled/01-all-in-one.conf:ro
+      - ../../docker-cm-data/rootfs/data/etc/nginx/nginx.conf-visulization:/etc/nginx/nginx.conf:ro
+    networks:
+      - mon
+
+  carbon:
+    restart: always
+    image: bodsch/docker-go-carbon:0.12.0-rc1
+    container_name: carbon
+    hostname: carbon
+    ports:
+      - 2003:2003
+      - 2003:2003/udp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - carbon:/srv
+    networks:
+      - mon
+
+  graphite:
+    restart: always
+    image: bodsch/docker-graphite:1.1.1-r1
+    container_name: graphite
+    hostname: graphite
+    environment:
+      # THIS TURN OFF THE INTERNAL CARBON!
+      # USE THIS ONLY WITH AN OTHER CARBON-WRITER (e.g. bodsch/docker-go-carbon)
+      USE_EXTERNAL_CARBON: 'true'
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - carbon:/srv
+    networks:
+      - mon
+
+  grafana:
+    restart: always
+    image: bodsch/docker-grafana:5.0.0-beta1
+    container_name: grafana
+    hostname: grafana
+    environment:
+      URL_PATH: /grafana/
+      ORGANISATION: CoreMedia
+      DATABASE_TYPE: mysql
+      MYSQL_HOST: database
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+      GRAPHITE_HOST: graphite
+      # WE USE AN SEPERATE CARBON SERVICE
+      # IF NOT, THEN SET THEN TO $GRAPHITE_HOST
+      # (see above in this configuration part!)
+      CARBON_HOST: carbon
+      MEMCACHE_HOST: memcached
+      # LDAP_SERVER: ${LDAP_SERVER}
+      # LDAP_PORT: 389
+      # LDAP_BIND_DN: ${LDAP_BIND_DN}
+      # LDAP_BIND_PASSWORD: ${LDAP_BIND_PASSWORD}
+      # LDAP_BASE_DN: ${LDAP_BASE_DN}
+      # LDAP_GROUP_DN: ${LDAP_GROUP_DN}
+      # LDAP_SEARCH_FILTER: ${LDAP_SEARCH_FILTER}
+    depends_on:
+      - database
+      - memcached
+    links:
+      - database
+      - memcached
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      # - /share/opt/grafana/dashboards:/opt/grafana/dashboards
+    networks:
+      - mon
+
+  cm-icinga2-master:
+    restart: always
+    build: ../../docker-cm-icinga2
+    container_name: cm-icinga2-master
+    hostname: cm-icinga2-master
+    depends_on:
+      - database
+    links:
+      - database
+    environment:
+      ICINGA_HOST: cm-icinga2-master
+      MYSQL_HOST: database
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+      IDO_PASSWORD: ${IDO_PASSWORD}
+      IDO_DATABASE_NAME: icinga2core
+      CARBON_HOST: carbon
+      ICINGA_MASTER: cm-icinga2-master
+      ICINGA_API_USERS: root:icinga,icingaweb:icingaweb,dashing:dashing,cert:foo-bar
+    ports:
+      - 5665:5665
+      - 8080:8080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - icinga:/srv
+      - icinga:/var/lib/icinga2
+    networks:
+      - mon
+    extra_hosts:
+      osmc.local: 192.168.122.60
+      blueprint-box: 192.168.252.100
+
+  icingaweb2:
+    restart: always
+    image: bodsch/docker-icingaweb2:2.5.1-r1
+    container_name: icingaweb2
+    hostname: icingaweb2
+    environment:
+      MYSQL_HOST: database
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+      IDO_PASSWORD: ${IDO_PASSWORD}
+      IDO_DATABASE_NAME: icinga2core
+      ICINGA2_HOST: cm-icinga2-master
+      ICINGA2_CMD_API_USER: icingaweb
+      ICINGA2_CMD_API_PASS: icingaweb
+      GRAPHITE_HOST: graphite
+      ICINGAWEB2_USERS: coremedia:coremedia,icinga:icinga
+      # LDAP_AD: 'true'
+      # LDAP_SERVER: ${LDAP_SERVER}
+      # LDAP_PORT: 389
+      # LDAP_BIND_DN: ${LDAP_BIND_DN}
+      # LDAP_BIND_PASSWORD: ${LDAP_BIND_PASSWORD}
+      # LDAP_BASE_DN: ${LDAP_BASE_DN}
+      # LDAP_FILTER: ${LDAP_FILTER}
+      # LDAP_ROLE_GROUPS: cm-common
+    depends_on:
+      - database
+      - cm-icinga2-master
+    links:
+      - database
+      - cm-icinga2-master:cm-icinga2-master
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+
+  markdown-service:
+    restart: always
+    image: bodsch/docker-markdown-service:1.1.0
+    container_name: markdown-service
+    hostname: markdown-service
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/www/markdown-service:/var/www
+    networks:
+      - mon
+
+  cm-dashing:
+    restart: always
+    build: ../../docker-cm-dashing
+    container_name: cm-dashing
+    hostname: cm-dashing
+    environment:
+      ICINGA_MASTER: cm-icinga2-master
+      ICINGA_CERT_SERVICE_BA_USER: ${CERT_SERVICE_BA_USER}
+      ICINGA_CERT_SERVICE_BA_PASSWORD: ${CERT_SERVICE_BA_PASSWORD}
+      ICINGA_CERT_SERVICE_API_USER: dashing
+      ICINGA_CERT_SERVICE_API_PASSWORD: dashing
+      ICINGA_CERT_SERVICE_SERVER: nginx
+      ICINGA_CERT_SERVICE_PORT: 80
+      ICINGA_CERT_SERVICE_PATH: /cert-service
+    depends_on:
+      - cm-icinga2-master
+      - nginx
+    links:
+      - cm-icinga2-master:cm-icinga2-master
+      - nginx
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+

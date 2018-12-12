@@ -1,0 +1,43 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+
+$background-color:  #999999;
+$value-color:       #fff;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+// ----------------------------------------------------------------------------
+// Widget-clock styles
+// ----------------------------------------------------------------------------
+.widget-clock {
+
+  .icon-background {
+    margin-top: -13px;
+  }
+
+  .title {
+    color: $title-color;
+  }
+
+  h1 {
+    padding-top: 2em;
+    margin-bottom: 3px;
+  }
+
+  .value {
+    color: $value-color;
+  }
+
+  .small {
+    font-size: 0.9em;
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+

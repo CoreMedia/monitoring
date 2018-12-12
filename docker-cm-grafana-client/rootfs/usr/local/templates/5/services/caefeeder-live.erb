@@ -1,0 +1,304 @@
+<%-
+  title = 'CAE Feeder Live'; descr = 'CAE Live Feeder'; app = 'FEEDER_LIVE'; id = 10;
+%>
+{
+  "dashboard": {
+    "uid": "<%= uuid %>",
+    "id": null,
+    "title": "<%= slug %> - <%= title %>",
+    "tags": [ "<%= short_hostname %>", "feeder" ],
+    "schemaVersion": 12,
+    "version": 1,
+    "style": "dark",
+    "refresh": "1m",
+    "time": { "from": "now/d", "to": "now/d" },
+    "timepicker": {
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "now": true,
+      "refresh_intervals": [
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ]
+    },
+    "timezone": "browser",
+    "annotations": {
+      "list": []
+    },
+    "templating": {
+      "list": [
+        {
+          "query": "<%= graphite_identifier %>",
+          "name": "host",
+          "hide": 2,
+          "current": {
+            "text": "<%= slug %>",
+            "value": "<%= graphite_identifier %>"
+          },
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= slug %>"
+            }
+          ],
+          "type": "constant",
+          "label": null
+        }
+      ]
+    },
+    "sharedCrosshair": true,
+    "editable": true,
+    "hideControls": false,
+
+    "rows": [
+      {
+        "title": "",
+        "height": "10px",
+        "panels": [
+          {
+            "id": <%= id += 1 %>,
+            "title": "",
+            "type": "text",
+            "span": 5,
+            "mode": "html",
+            "transparent": true,
+            "content": "<h2 style=\"text-align:center; font-weight:500\"><%= descr %></h2>"
+          },
+          {
+            "id": <%= id += 1 %>,
+            "title": "",
+            "type": "text",
+            "span": 7,
+            "mode": "html",
+            "transparent": true,
+            "content": "<div style=\"text-align:center; font-size: 1.8em\">\n<div style=\"width:49%; float:left\"><a style=\"text-decoration:none\" href=\"<%= tomcat_dashboard_url %>?var-Application=<%= app %>\">Tomcat</a></div>\n  <div style=\"width:49%; float:left\"><a style=\"text-decoration:none\" href=\"<%= memorypools_dashboard_url %>?var-Application=<%= app %>\">Memory Pools</a></div>\n</div>\n"
+          }
+        ]
+      },
+      {
+        "title": "Feeder Elements",
+        "height": "150px",
+        "panels": [
+          {
+            "legend": {
+              "alignAsTable": true,
+              "rightSide": true,
+              "total": false,
+              "max": false,
+              "avg": false,
+              "show": true,
+              "current": true,
+              "min": false,
+              "values": true
+            },
+            "timeFrom": null,
+            "targets": [
+              {
+                "refId": "A",
+                "textEditor": false,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.FEEDER_LIVE.ProactiveEngine.feeder.entries.diff, '(.*)-', ''))"
+              },
+              {
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.FEEDER_LIVE.ProactiveEngine.feeder.entries.current, '(.*)-', ''))",
+                "textEditor": false,
+                "refId": "B",
+                "hide": true
+              },
+              {
+                "hide": true,
+                "refId": "C",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.FEEDER_LIVE.ProactiveEngine.feeder.entries.max, '(.*)-', ''))",
+                "textEditor": false
+              },
+              {
+                "hide": true,
+                "refId": "D",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.FEEDER_LIVE.ProactiveEngine.feeder.invalidations, '(.*)-', ''))",
+                "textEditor": false
+              },
+              {
+                "refId": "E",
+                "textEditor": false,
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.FEEDER_LIVE.ProactiveEngine.feeder.heartbeat, '(.*)-', ''))"
+              }
+            ],
+            "id": <%= id += 1 %>,
+            "points": false,
+            "span": 12,
+            "title": "Feeder Elements",
+            "links": [],
+            "xaxis": {
+              "show": true
+            },
+            "editable": true,
+            "timeShift": null,
+            "grid": {
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold1": null,
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "tooltip": {
+              "shared": true,
+              "ordering": "alphabetical",
+              "value_type": "cumulative",
+              "msResolution": false,
+              "sort": 0
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "show": true,
+                "logBase": 1,
+                "max": null,
+                "min": 0
+              },
+              {
+                "min": 0,
+                "max": 60000,
+                "show": true,
+                "logBase": 1,
+                "format": "ms"
+              }
+            ],
+            "isNew": true,
+            "type": "graph",
+            "percentage": false,
+            "fill": 3,
+            "decimals": 0,
+            "linewidth": 1,
+            "lines": true,
+            "nullPointMode": "connected",
+            "aliasColors": {},
+            "pointradius": 5,
+            "steppedLine": false,
+            "renderer": "flot",
+            "bars": false,
+            "error": false,
+            "stack": false,
+            "seriesOverrides": [
+              {
+                "alias": "heartbeat",
+                "yaxis": 2
+              }
+            ],
+            "datasource": "graphite"
+          }
+        ]
+      },
+      {
+        "title": "UAPI Cache",
+        "height": "150px",
+        "panels": [
+          {
+            "nullPointMode": "connected",
+            "fill": 3,
+            "decimals": 1,
+            "linewidth": 1,
+            "lines": true,
+            "datasource": "graphite",
+            "stack": false,
+            "seriesOverrides": [
+              {
+                "alias": "percent",
+                "yaxis": 2,
+                "color": "#BF1B00"
+              }
+            ],
+            "aliasColors": {},
+            "steppedLine": false,
+            "pointradius": 5,
+            "renderer": "flot",
+            "error": false,
+            "bars": false,
+            "id": <%= id += 1 %>,
+            "points": false,
+            "span": 12,
+            "title": "UAPI Cache",
+            "links": [],
+            "legend": {
+              "alignAsTable": true,
+              "rightSide": true,
+              "max": false,
+              "total": false,
+              "current": true,
+              "avg": false,
+              "show": true,
+              "values": true,
+              "min": false
+            },
+            "timeFrom": null,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(aliasSub(carbon-writer.$host.FEEDER_LIVE.CapConnection.heap.cache.size, '(.*)-', ''), 'max')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "textEditor": false,
+                "target": "alias(aliasSub(carbon-writer.$host.FEEDER_LIVE.CapConnection.heap.cache.used, '(.*)-', ''), 'used')"
+              },
+              {
+                "textEditor": false,
+                "target": "alias(aliasSub(carbon-writer.$host.FEEDER_LIVE.CapConnection.heap.cache.used_percent, '(.*)-', ''), 'percent')",
+                "refId": "C"
+              }
+            ],
+            "yaxes": [
+              {
+                "min": 0,
+                "max": null,
+                "logBase": 1,
+                "show": true,
+                "format": "bytes",
+                "label": null
+              },
+              {
+                "label": "percent",
+                "format": "none",
+                "show": true,
+                "logBase": 1,
+                "max": "110",
+                "min": null
+              }
+            ],
+            "type": "graph",
+            "percentage": false,
+            "isNew": true,
+            "xaxis": {
+              "show": true
+            },
+            "editable": true,
+            "timeShift": null,
+            "tooltip": {
+              "value_type": "cumulative",
+              "msResolution": false,
+              "sort": 0,
+              "ordering": "alphabetical",
+              "shared": true
+            },
+            "grid": {
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2Color": "rgba(234, 112, 112, 0.22)",
+              "threshold2": null,
+              "threshold1": null
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

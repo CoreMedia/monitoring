@@ -1,0 +1,68 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #47bbb3;
+$value-color:       #fff;
+$error-color: red;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+// ----------------------------------------------------------------------------
+// Widget-number styles
+// ----------------------------------------------------------------------------
+  .widget-timer {
+
+  background-color: $background-color;
+
+  .sparkline-label
+  {
+    font-size:.6em;
+  }
+  .sparkline
+  {
+        vertical-align: baseline;
+
+  }
+  .title {
+    color: $title-color;
+  }
+
+  .error {
+    background-color: $error-color;
+    color: white;
+    padding:1em;
+    border-radius: 25px;
+    display:none;
+    .highlighted
+    {
+      background-color: #444444;
+      padding:0 4px 0 4px;
+    }
+    a
+    {
+      text-decoration: underline;
+    }
+
+  }
+  .value {
+    color: $value-color;
+    font-size:2.5em;
+    text-transform: lowercase;
+  }
+
+  .change-rate {
+    font-weight: 500;
+    font-size: 30px;
+    color: $value-color;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+  }
+
+  .updated-at {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+}

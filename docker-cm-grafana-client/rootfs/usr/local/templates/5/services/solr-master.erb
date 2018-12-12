@@ -1,0 +1,441 @@
+<%-
+  title = 'Solr Master'; descr = 'Solr Master'; app = 'SOLR_MASTER'; id = 10;
+-%>
+{
+  "dashboard": {
+    "uid": "<%= uuid %>",
+    "id": null,
+    "title": "<%= slug %> - <%= title %>",
+    "tags": ["<%= short_hostname %>"],
+    "schemaVersion": 12,
+    "version": 1,
+    "style": "dark",
+    "refresh": "1m",
+    "time": { "from": "now/d", "to": "now/d" },
+    "timepicker": {
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "now": true,
+      "refresh_intervals": [
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ]
+    },
+    "timezone": "browser",
+    "annotations": {
+      "list": []
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "value": "<%= graphite_identifier %>",
+            "text": "<%= slug %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= slug %>"
+            }
+          ],
+          "query": "<%= graphite_identifier %>",
+          "type": "constant"
+        },
+        {
+          "allValue": null,
+          "current": {
+            "text": "live",
+            "value": "live",
+            "selected": true,
+            "tags": []
+          },
+          "datasource": "graphite",
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "core",
+          "options": [
+            {
+              "text": "live",
+              "value": "live",
+              "selected": true
+            },
+            {
+              "text": "preview",
+              "value": "preview",
+              "selected": false
+            },
+            {
+              "text": "studio",
+              "value": "studio",
+              "selected": false
+            }
+          ],
+          "query": "carbon-writer.$host.SOLR*.*",
+          "refresh": 1,
+          "regex": "/.*core_(.*).*$/",
+          "sort": 0,
+          "tagValuesQuery": null,
+          "tagsQuery": null,
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "sharedCrosshair": true,
+    "editable": true,
+    "hideControls": false,
+
+    "rows": [
+      {
+        "title": "",
+        "height": "10px",
+        "panels": [
+          {
+            "id": <%= id += 1 %>,
+            "title": "",
+            "type": "text",
+            "span": 5,
+            "mode": "html",
+            "transparent": true,
+            "content": "<h2 style=\"text-align:center; font-weight:500\"><%= descr %></h2>"
+          },
+          {
+            "id": <%= id += 1 %>,
+            "title": "",
+            "type": "text",
+            "span": 7,
+            "mode": "html",
+            "transparent": true,
+            "content": "<div style=\"text-align:center; font-size: 1.8em\">\n<div style=\"width:49%; float:left\"><a style=\"text-decoration:none\" href=\"<%= tomcat_dashboard_url %>?var-Application=<%= app %>\">Tomcat</a></div>\n  <div style=\"width:49%; float:left\"><a style=\"text-decoration:none\" href=\"<%= memorypools_dashboard_url %>?var-Application=<%= app %>\">Memory Pools</a></div>\n</div>\n"
+          }
+        ]
+
+      },
+      {
+        "title": "Query Result Cache",
+        "height": "200px",
+        "panels": [
+          {
+            "title": "Query Result Cache",
+            "error": false,
+            "span": 12,
+            "editable": true,
+            "type": "graph",
+            "isNew": true,
+            "id": <%= id += 1 %>,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.QueryResultCache.size, 'cache size')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.QueryResultCache.hits, 'cache hits')",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.QueryResultCache.hitratio, 'cache hit ratio')",
+                "textEditor": false
+              }
+            ],
+            "datasource": null,
+            "renderer": "flot",
+            "decimals": 1,
+            "yaxes": [
+              {
+                "label": null,
+                "show": true,
+                "logBase": 1,
+                "min": 0,
+                "max": null,
+                "format": "bytes"
+              },
+              {
+                "label": null,
+                "show": true,
+                "logBase": 1,
+                "min": 0,
+                "max": null,
+                "format": "short"
+              }
+            ],
+            "xaxis": {
+              "show": true
+            },
+            "grid": {
+              "threshold1": null,
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "lines": true,
+            "fill": 3,
+            "linewidth": 1,
+            "points": false,
+            "pointradius": 5,
+            "bars": false,
+            "stack": false,
+            "percentage": false,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "nullPointMode": "connected",
+            "steppedLine": false,
+            "tooltip": {
+              "value_type": "cumulative",
+              "shared": true,
+              "sort": 0,
+              "msResolution": false
+            },
+            "timeFrom": null,
+            "timeShift": null,
+            "aliasColors": {},
+            "seriesOverrides": [
+              {
+                "alias": "cache hits",
+                "yaxis": 2
+              }, {
+                "alias": "cache hit ratio",
+                "yaxis": 2
+              }
+            ],
+            "links": []
+          }
+        ]
+      },
+      {
+        "title": "Document Cache",
+        "height": "200px",
+        "panels": [
+          {
+            "title": "Document Cache",
+            "error": false,
+            "span": 12,
+            "editable": true,
+            "type": "graph",
+            "isNew": true,
+            "id": <%= id += 1 %>,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.DocumentCache.size, 'cache size')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.DocumentCache.hits, 'cache hits')",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.DocumentCache.hitratio, 'cache hit ratio')",
+                "textEditor": false
+              }
+            ],
+            "datasource": null,
+            "renderer": "flot",
+            "decimals": 1,
+            "yaxes": [
+              {
+                "label": null,
+                "show": true,
+                "logBase": 1,
+                "min": 0,
+                "max": null,
+                "format": "bytes"
+              },
+              {
+                "label": null,
+                "show": true,
+                "logBase": 1,
+                "min": 0,
+                "max": null,
+                "format": "short"
+              }
+            ],
+            "xaxis": {
+              "show": true
+            },
+            "grid": {
+              "threshold1": null,
+              "threshold2": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "lines": true,
+            "fill": 3,
+            "linewidth": 1,
+            "points": false,
+            "pointradius": 5,
+            "bars": false,
+            "stack": false,
+            "percentage": false,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "nullPointMode": "connected",
+            "steppedLine": false,
+            "tooltip": {
+              "value_type": "cumulative",
+              "shared": true,
+              "sort": 0,
+              "msResolution": false
+            },
+            "timeFrom": null,
+            "timeShift": null,
+            "aliasColors": {},
+            "seriesOverrides": [
+              {
+                "alias": "cache hits",
+                "yaxis": 2
+              }, {
+                "alias": "cache hit ratio",
+                "yaxis": 2
+              }
+            ],
+            "links": []
+          }
+        ]
+      },
+      {
+        "title": "Solr Select",
+        "height": "200px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": null,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": <%= id += 1 %>,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "decimals": 1,
+            "seriesOverrides": [
+              {
+                "alias": "errors",
+                "yaxis": 2
+              },
+              {
+                "alias": "requests",
+                "yaxis": 2
+              }
+            ],
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.Select.requestPerSecond.avg, 'request per second')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.Select.errors, 'errors')",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "alias(carbon-writer.$host.SOLR_MASTER.core_$core.Select.requests, 'requests')",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Solr Select",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "ms",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": 0,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": 0,
+                "show": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+  }
+}

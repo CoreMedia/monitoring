@@ -1,0 +1,511 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "<%= slug %> - Delivery CAE",
+    "tags": [ "<%= short_hostname %>", "cae" ],
+    "style": "dark",
+    "timezone": "browser",
+    "editable": true,
+    "hideControls": false,
+    "sharedCrosshair": true,
+    "rows": [
+      {
+        "repeatRowId": null,
+        "titleSize": "h6",
+        "panels": [
+          {
+            "span": 12,
+            "links": [],
+            "mode": "html",
+            "content": "<h3><center><a href=\"<%= tomcat_dashboard_url %>?var-Application=<%= normalized_name %>\">Tomcat</a></center></h3>",
+            "transparent": true,
+            "type": "text",
+            "id": 10,
+            "title": ""
+          }
+        ],
+        "showTitle": false,
+        "title": "",
+        "repeatIteration": null,
+        "repeat": null,
+        "collapse": false,
+        "height": "25px"
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "25px",
+        "panels": [
+          {
+            "content": "<h2><center>CAE Live</center></h2>",
+            "editable": true,
+            "error": false,
+            "id": 1,
+            "isNew": true,
+            "links": [],
+            "mode": "html",
+            "span": 12,
+            "title": "",
+            "transparent": true,
+            "type": "text"
+          }
+        ],
+        "title": "New row"
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "150px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 1,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 7,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "percent",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(aliasSub(carbon-writer.$host.CAE_LIVE.CapConnection.heap.cache.size, '(.*)-', ''), 'max')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "alias(aliasSub(carbon-writer.$host.CAE_LIVE.CapConnection.heap.cache.used, '(.*)-', ''), 'used')",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.heap.cache.used_percent, 'percent')",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "UAPI Cache",
+            "tooltip": {
+              "msResolution": false,
+              "ordering": "alphabetical",
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "bytes",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": 0,
+                "show": true
+              },
+              {
+                "format": "none",
+                "label": "percent",
+                "logBase": 1,
+                "max": "110",
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ],
+        "title": "UAPI Cache"
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "150px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 1,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 9,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+              {
+                "alias": "percent",
+                "color": "#BF1B00",
+                "yaxis": 2
+              }
+            ],
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.blob.cache.size, 'max')",
+                "textEditor": false
+              },
+              {
+                "refId": "B",
+                "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.blob.cache.used, 'used')",
+                "textEditor": false
+              },
+              {
+                "refId": "C",
+                "target": "alias(carbon-writer.$host.CAE_LIVE.CapConnection.blob.cache.used_percent, 'percent')",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "BlobCache",
+            "tooltip": {
+              "msResolution": false,
+              "ordering": "alphabetical",
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "bytes",
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "none",
+                "label": "percent",
+                "logBase": 1,
+                "max": "110",
+                "min": null,
+                "show": true
+              }
+            ]
+          }
+        ],
+        "title": "Blob Cache"
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "150px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 12,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": true,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.CAE_LIVE.CapConnection.su_sessions.sessions, '(.*)-', ''))",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "Lightweight Sessions",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": "0",
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ]
+          }
+        ],
+        "title": "Lightweight Sessions"
+      },
+      {
+        "collapse": false,
+        "editable": true,
+        "height": "250px",
+        "panels": [
+          {
+            "aliasColors": {},
+            "bars": false,
+            "datasource": "graphite",
+            "decimals": 0,
+            "editable": true,
+            "error": false,
+            "fill": 3,
+            "grid": {
+              "threshold1": null,
+              "threshold1Color": "rgba(216, 200, 27, 0.27)",
+              "threshold2": null,
+              "threshold2Color": "rgba(234, 112, 112, 0.22)"
+            },
+            "id": 12,
+            "isNew": true,
+            "legend": {
+              "alignAsTable": true,
+              "avg": false,
+              "current": true,
+              "max": false,
+              "min": false,
+              "rightSide": true,
+              "show": true,
+              "total": false,
+              "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "connected",
+            "percentage": false,
+            "pointradius": 5,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "span": 12,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+              {
+                "refId": "A",
+                "target": "aliasByMetric(aliasSub(carbon-writer.$host.CAE_LIVE.DataViewFactory.*, '(.*)-', ''))",
+                "textEditor": false
+              }
+            ],
+            "timeFrom": null,
+            "timeShift": null,
+            "title": "DataView Factory",
+            "tooltip": {
+              "msResolution": false,
+              "shared": true,
+              "sort": 0,
+              "value_type": "cumulative"
+            },
+            "type": "graph",
+            "xaxis": {
+              "show": true
+            },
+            "yaxes": [
+              {
+                "format": "none",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": true
+              },
+              {
+                "format": "short",
+                "label": null,
+                "logBase": 1,
+                "max": null,
+                "min": null,
+                "show": false
+              }
+            ]
+          }
+        ],
+        "title": "DataView Factory"
+      }
+    ],
+    "time": {
+      "from": "now-3h",
+      "to": "now"
+    },
+    "timepicker": {
+      "now": true,
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "value": "<%= graphite_identifier %>",
+            "text": "<%= graphite_identifier %>"
+          },
+          "hide": 2,
+          "label": null,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= graphite_identifier %>"
+            }
+          ],
+          "query": "<%= graphite_identifier %>",
+          "type": "constant"
+        }
+      ]
+    },
+    "annotations": {
+      "list": [
+        {
+          "name": "created",
+          "enable": true,
+          "iconColor": "rgb(93, 227, 12)",
+          "datasource": "events",
+          "tags": "$host created&set=intersection"
+        },
+        {
+          "name": "Load Tests",
+          "enable": true,
+          "iconColor": "rgb(26, 196, 220)",
+          "datasource": "events",
+          "tags": "$host loadtest&set=intersection"
+        },
+        {
+          "name": "Deployments",
+          "enable": true,
+          "iconColor": "rgb(176, 40, 253)",
+          "datasource": "events",
+          "tags": "$host deployment&set=intersection"
+        }
+      ]
+    },
+    "refresh": "1m",
+    "schemaVersion": 12,
+    "version": 12,
+    "links": [],
+    "gnetId": null
+  }
+}

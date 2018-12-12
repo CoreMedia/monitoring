@@ -1,0 +1,784 @@
+<%-
+  title = 'Cache Classes (eCommerce)'; id = 10;
+%>
+{
+  "dashboard": {
+    "uid": "<%= uuid %>",
+    "id": null,
+    "title": "<%= slug %> - <%= title %>",
+    "tags": [ "<%= short_hostname %>", "caches" ],
+    "schemaVersion": 16,
+    "version": 2,
+    "style": "dark",
+    "refresh": "1m",
+    "time": { "from": "now/d", "to": "now/d" },
+    "timepicker": {
+      "now": true,
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "30s",
+        "1m",
+        "2m",
+        "4m",
+        "10m"
+      ]
+    },
+    "timezone": "browser",
+    "annotations": {
+      "list": []
+    },
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "text": "<%= slug %>",
+            "value": "<%= graphite_identifier %>"
+          },
+          "hide": 2,
+          "name": "host",
+          "options": [
+            {
+              "value": "<%= graphite_identifier %>",
+              "text": "<%= slug %>"
+            }
+          ],
+          "query": "<%= slug %>",
+          "label": null,
+          "type": "constant"
+        },
+        {
+          "current": {
+            "text": "CAE_LIVE",
+            "value": "CAE_LIVE"
+          },
+          "refresh": 1,
+          "tags": [],
+          "datasource": "graphite",
+          "includeAll": false,
+          "regex": "/^(CAE_(.*)|STUDIO).*$/",
+          "name": "service",
+          "useTags": false,
+          "multi": false,
+          "hide": 1,
+          "type": "query",
+          "label": "",
+          "query": "carbon-writer.$host.*",
+          "options": [
+            {
+              "value": "CAE_LIVE",
+              "text": "CAE_LIVE",
+              "selected": true
+            },
+            {
+              "value": "CAE_PREV",
+              "text": "CAE_PREV",
+              "selected": false
+            },
+            {
+              "text": "STUDIO",
+              "selected": false,
+              "value": "STUDIO"
+            }
+          ]
+        }
+      ]
+    },
+
+    "panels": [
+<%-
+  h = 5
+  widget_width = 12
+  x = 0
+  y = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Availability",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceAvailability.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceAvailability.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceAvailability.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceAvailability.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceAvailability.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Category",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCategory.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCategory.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCategory.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCategory.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCategory.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce CommerceUser",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCommerceUser.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCommerceUser.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCommerceUser.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCommerceUser.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceCommerceUser.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Contract",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContract.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContract.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContract.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContract.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContract.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce ContractIds by User",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractIdsByUser.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractIdsByUser.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractIdsByUser.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractIdsByUser.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractIdsByUser.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Contracts by User",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractsByUser.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractsByUser.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractsByUser.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractsByUser.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceContractsByUser.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Dynamic Price",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceDynamicPrice.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceDynamicPrice.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceDynamicPrice.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceDynamicPrice.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceDynamicPrice.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Marketing Spot",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpot.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpot.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpot.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpot.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpot.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Marketing Spots",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpots.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpots.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpots.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpots.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceMarketingSpots.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Preview Token",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommercePreviewToken.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommercePreviewToken.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommercePreviewToken.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommercePreviewToken.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommercePreviewToken.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Product",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProduct.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProduct.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProduct.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProduct.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProduct.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Products by Category",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProductsByCategory.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProductsByCategory.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProductsByCategory.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProductsByCategory.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceProductsByCategory.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Segment",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegment.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegment.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegment.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegment.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegment.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Segments",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegments.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegments.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegments.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegments.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegments.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Segments by User",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegmentsByUser.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegmentsByUser.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegmentsByUser.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegmentsByUser.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSegmentsByUser.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Static Price",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStaticPrice.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStaticPrice.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStaticPrice.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStaticPrice.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStaticPrice.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Store Info",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStoreInfo.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStoreInfo.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStoreInfo.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStoreInfo.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceStoreInfo.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce SubCategories",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSubCategories.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSubCategories.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSubCategories.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSubCategories.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceSubCategories.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce TopCategories",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceTopCategories.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceTopCategories.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceTopCategories.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceTopCategories.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceTopCategories.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce User is LoggedIn",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceUserIsLoggedIn.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceUserIsLoggedIn.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceUserIsLoggedIn.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceUserIsLoggedIn.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceUserIsLoggedIn.missRate)" }
+        ]
+      },
+<%-
+  y += h
+  x = 0
+-%>
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce Workspaces",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= x %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceWorkspaces.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceWorkspaces.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceWorkspaces.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceWorkspaces.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.ECommerceWorkspaces.missRate)" }
+        ]
+      },
+      {
+        "id": <%= id += 1 %>,
+        "title": "ECommerce SearchTerm External Reference Resolver",
+        "datasource": "graphite",
+        "type": "graph",
+        "lines": true,
+        "linewidth": 1,
+        "fill": 3,
+        "nullPointMode": "connected",
+        "gridPos": { "x": <%= widget_width %>, "y": <%= y %>, "w": <%= widget_width %>, "h": <%= h %> },
+        "grid": {},
+        "seriesOverrides": [
+          { "color": "#CFFAFF", "yaxis": 2, "alias": "missRate" },
+          { "color": "#1F78C1", "yaxis": 2, "alias": "removed"  },
+          { "color": "#BF1B00", "yaxis": 2, "alias": "evicted"  }
+        ],
+        "yaxes": [
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true },
+          { "format": "short", "label": null, "logBase": 1, "max": null, "min": null, "show": true }
+        ],
+        "legend": { "alignAsTable": true, "current": true,  "rightSide": true, "show": true, "values": true, "min": 0, "avg": false, "max": false, "total": false, "sideWidth": 200 },
+        "targets": [
+          { "refId": "A", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SearchTermExternalReferenceResolver.capacity)" },
+          { "refId": "B", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SearchTermExternalReferenceResolver.level)" },
+          { "refId": "C", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SearchTermExternalReferenceResolver.evicted)" },
+          { "refId": "D", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SearchTermExternalReferenceResolver.removed)" },
+          { "refId": "E", "target": "aliasByMetric(carbon-writer.$host.$service.CacheClasses.SearchTermExternalReferenceResolver.missRate)" }
+        ]
+      }
+    ]
+  }
+}

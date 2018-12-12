@@ -1,0 +1,275 @@
+---
+# project_name: monitoring
+#
+# data-capture
+
+version: '3.3'
+
+networks:
+  mon:
+
+volumes:
+  database:
+    driver: local
+  redis:
+    driver: local
+  carbon:
+    driver: local
+  icinga:
+    driver: local
+
+services:
+
+  beanstalkd:
+    restart: always
+    image: bodsch/docker-beanstalkd:1.10
+    container_name: beanstalkd
+    hostname: beanstalkd
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+
+  database:
+    restart: always
+    image: bodsch/docker-mysql:10.1.28-r1
+    container_name: database
+    hostname: database
+    environment:
+      MYSQL_SYSTEM_USER: root
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - database:/srv
+    networks:
+      - mon
+
+  jolokia:
+    restart: always
+    build: ../../docker-cm-jolokia
+    container_name: jolokia
+    hostname: jolokia
+    ports:
+      - 8080:8080
+      - 8088:8088
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+
+  redis:
+    restart: always
+    image: bodsch/docker-redis:3.2.8-r1
+    container_name: redis
+    hostname: redis
+#    ports:
+#      - 6379:6379
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - redis:/var/lib/redis
+    networks:
+      - mon
+
+  nginx:
+    restart: always
+    image: bodsch/docker-nginx:1.12.2-r1
+    container_name: nginx
+    hostname: nginx
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - data
+      - cm-rest-service
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/etc/nginx/sites-enabled/01-data-capture.conf:/etc/nginx/sites-enabled/01-all-in-one.conf:ro
+      - ../../docker-cm-data/rootfs/data/etc/nginx/nginx.conf-capture:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/secure/localhost:ro
+    networks:
+      - mon
+
+  carbon-relay:
+    restart: always
+    image: bodsch/docker-carbon-relay-ng:0.9.4-r1
+    container_name: carbon-relay
+    hostname: carbon-relay
+    environment:
+      # externa service
+      GRAPHITE_HOST: ${VISUALISATION_HOST}
+    tmpfs:
+      - /var/spool
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+
+  icinga2-satellite:
+    restart: always
+    build: ../../docker-cm-icinga2
+    container_name: icinga2-satellite
+    hostname: icinga2-satellite
+    environment:
+      # external service
+      ICINGA_MASTER: ${VISUALISATION_HOST}
+      ICINGA_PARENT: ${VISUALISATION_HOST}
+      ICINGA_CERT_SERVICE_BA_USER: admin
+      ICINGA_CERT_SERVICE_BA_PASSWORD: admin
+      ICINGA_CERT_SERVICE_API_USER: root
+      ICINGA_CERT_SERVICE_API_PASSWORD: icinga
+#      # external service
+      ICINGA_CERT_SERVICE_SERVER: ${VISUALISATION_HOST}
+      ICINGA_CERT_SERVICE_PORT: 80
+      ICINGA_CERT_SERVICE_PATH: /cert-service/
+    depends_on:
+      - data
+      - redis
+    links:
+      - redis
+    ports:
+      - 5665:5665
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./icinga2-satellite:/var/lib/icinga2
+#      - icinga:/var/lib/icinga2
+    networks:
+      - mon
+
+  #
+  # CoreMedia Glue and Logic
+
+  cm-service-discovery:
+    restart: always
+    build: ../../docker-cm-service-discovery
+    container_name: cm-service-discover
+    hostname: cm-service-discover
+    depends_on:
+      - data
+      - jolokia
+      - beanstalkd
+      - redis
+      - database
+    links:
+      - jolokia
+      - beanstalkd
+      - redis
+      - database
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/etc/cm-service.yaml:/etc/cm-service.yaml
+      - ../../docker-cm-data/rootfs/data/etc/cm-application.yaml:/etc/cm-application.yaml
+    networks:
+      - mon
+
+  cm-data-collector:
+    restart: always
+    build: ../../docker-cm-data-collector
+    container_name: cm-data-collector
+    hostname: cm-data-collector
+    depends_on:
+      - data
+      - jolokia
+      - beanstalkd
+      - redis
+      - database
+    links:
+      - jolokia
+      - beanstalkd
+      - redis
+      - database
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/etc/cm-service.yaml:/etc/cm-service.yaml
+      - ../../docker-cm-data/rootfs/data/etc/cm-application.yaml:/etc/cm-application.yaml
+    networks:
+      - mon
+
+  cm-carbon-client:
+    restart: always
+    build: ../../docker-cm-carbon-client
+    container_name: cm-carbon-client
+    hostname: cm-carbon-client
+    environment:
+      # USE ONLY WITH AND EXTERNAL CARBON-WRITER!
+      GRAPHITE_HOST: carbon-relay
+    depends_on:
+      - data
+      - redis
+    links:
+      - redis
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+
+  cm-grafana-client:
+    restart: always
+    build: ../../docker-cm-grafana-client
+    container_name: cm-grafana-client
+    hostname: cm-grafana-client
+    environment:
+      # external service
+      GRAFANA_HOST: ${VISUALISATION_HOST}
+    depends_on:
+      - beanstalkd
+      - redis
+      - database
+    links:
+      - beanstalkd
+      - redis
+      - database
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/usr/local/share/templates:/usr/local/share/templates
+      - ../../docker-cm-data/rootfs/data/etc/grafana_config.yml:/etc/grafana_config.yml
+    networks:
+      - mon
+
+  cm-icinga-client:
+    restart: always
+    build: ../../docker-cm-icinga-client
+    container_name: cm-icinga-client
+    hostname: cm-icinga-client
+    environment:
+      # external service
+      ICINGA_MASTER: ${VISUALISATION_HOST}
+      ICINGA_CERT_SERVICE_BA_USER: ${CERT_SERVICE_BA_USER}
+      ICINGA_CERT_SERVICE_BA_PASSWORD: ${CERT_SERVICE_BA_PASSWORD}
+      ICINGA_CERT_SERVICE_API_USER: dashing
+      ICINGA_CERT_SERVICE_API_PASSWORD: dashing
+      ICINGA_CERT_SERVICE_SERVER: ${VISUALISATION_HOST}
+      ICINGA_CERT_SERVICE_PORT: 80
+      ICINGA_CERT_SERVICE_PATH: /cert-service
+      ENABLE_NOTIFICATIONS: 'true'
+    depends_on:
+      - data
+      - beanstalkd
+    links:
+      - beanstalkd
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../../docker-cm-data/rootfs/data/etc/icinga_server_config.yml:/etc/icinga_server_config.yml
+    networks:
+      - mon
+
+  cm-rest-service:
+    restart: always
+    build: ../../docker-cm-rest-service
+    container_name: cm-rest-service
+    hostname: cm-rest-service
+    environment:
+      LOG_LEVEL: debug
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - data
+      - redis
+      - database
+    links:
+      - redis
+      - database
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - mon
+
+# EOF
