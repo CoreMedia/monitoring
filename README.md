@@ -21,4 +21,4 @@ zum [Schnelleinstieg](doc/de/schnelleinstieg.md)
 
 ----
 
-Mehr [Dokumentation](doc/index-de.md)
+Mehr [Dokumentation](doc/de/index.md)
