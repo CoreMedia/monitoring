@@ -16,22 +16,27 @@ ENV \
 
 COPY build /build
 
+WORKDIR /usr/local/bin
+
 RUN \
-  apk --quiet --no-cache update && \
-  apk --quiet --no-cache upgrade && \
-  apk add --quiet --no-cache --virtual .build-deps \
+  apk update  --quiet && \
+  apk upgrade --quiet && \
+  apk add     --quiet --no-cache --virtual .build-deps \
     build-base imagemagick-dev ruby-dev mariadb-dev tzdata && \
-  apk add --quiet --no-cache \
+  apk add     --quiet --no-cache \
     bind-tools drill mariadb-connector-c ruby-irb && \
-  cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
-  echo ${TZ} > /etc/timezone && \
+  cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
+  echo "${TZ}" > /etc/timezone && \
+  echo 'gem: --no-document' >> /etc/gemrc && \
   gem install --quiet --no-rdoc --no-ri \
     io-console bundler json && \
   cd /build && \
   if [ "${GRAFANA_GEM_TYPE}" == "local" ] ; then \
-    for g in $(ls -1 /build/*.gem 2> /dev/null) ; do \
-      echo "install local gem '${g}'" && \
-      gem install --quiet --no-rdoc --no-ri ${g} ; \
+    for g in /build/*.gem ; \
+    do \
+      [[ -e ${g} ]] || continue ; \
+      echo "local gem: '${g}'" ; \
+      gem install --no-rdoc --no-ri ${g} ; \
     done ; \
   elif [ "${GRAFANA_GEM_TYPE}" == "stable" ] ; then \
     echo "gem 'grafana', '~> ${GRAFANA_GEM_VERSION}'" >> Gemfile ; \
@@ -49,15 +54,13 @@ RUN \
 
 COPY rootfs/ /
 
-WORKDIR /
+CMD ["grafana-client.rb"]
 
 HEALTHCHECK \
   --interval=5s \
   --timeout=2s \
   --retries=12 \
   CMD ps ax | grep -v grep | grep -c grafana-client.rb || exit 1
-
-CMD [ "/usr/local/bin/grafana-client.rb" ]
 
 # ---------------------------------------------------------------------------------------
 

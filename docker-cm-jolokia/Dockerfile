@@ -5,10 +5,11 @@ COPY build/ /build
 
 WORKDIR /build
 
+# hadolint ignore=DL3003,DL3017,DL3018,DL3019
 RUN \
-  apk update --quiet --no-cache && \
-  apk upgrade --quiet --no-cache && \
-  apk add --quiet --virtual .build-deps \
+  apk update  --quiet && \
+  apk upgrade --quiet && \
+  apk add     --quiet \
     g++ git make && \
   export GOPATH=/build && \
   cd ${GOPATH}/src && \
@@ -26,16 +27,16 @@ ARG BUILD_VERSION
 ENV \
   VERSION="${BUILD_VERSION}" \
   BUILD_DATE="${BUILD_DATE}" \
-  TZ='Europe/Berlin'
+  TERM="xterm" \
+  TZ="Europe/Berlin"
 
-EXPOSE 8080 8088
-
+# hadolint ignore=DL3018
 RUN \
-  apk --quiet --no-cache update && \
-  apk add --quiet --no-cache --virtual .build-deps \
+  apk update --quiet && \
+  apk add    --quiet --no-cache --virtual .build-deps \
     tzdata && \
-  cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
-  echo ${TZ} > /etc/timezone && \
+  cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
+  echo "${TZ}" > /etc/timezone && \
   apk --quiet --purge del .build-deps && \
   rm -rf \
     /tmp/* \
@@ -45,6 +46,8 @@ COPY --from=builder /service-discovery /usr/bin/
 COPY rootfs/ /
 
 WORKDIR /
+
+EXPOSE 8080 8088
 
 # ---------------------------------------------------------------------------------------
 

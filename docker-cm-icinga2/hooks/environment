@@ -1,0 +1,10 @@
+
+PORTS="
+  --publish 8080:8080 \
+  --publish 8088:8088"
+
+VOLUMES=""
+#  --volume foo;bar:ro
+
+ENV=""
+#  --env URL_PATH="/"

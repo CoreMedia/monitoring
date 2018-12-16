@@ -7,8 +7,8 @@ ARG BUILD_VERSION
 ENV \
   VERSION="${BUILD_VERSION}" \
   BUILD_DATE="${BUILD_DATE}" \
-  TERM=xterm \
-  TZ='Europe/Berlin' \
+  TERM="xterm" \
+  TZ="Europe/Berlin" \
   ICINGA2_GEM_TYPE="stable" \
   ICINGA2_GEM_VERSION="1.0.0"
 
@@ -16,23 +16,27 @@ ENV \
 
 COPY build /build
 
+WORKDIR /usr/local/bin
+
 RUN \
-  apk --quiet --no-cache update && \
-  apk --quiet --no-cache upgrade && \
-  apk add --quiet --no-cache --virtual .build-deps \
+  apk update  --quiet && \
+  apk upgrade --quiet && \
+  apk add     --quiet --no-cache --virtual .build-deps \
     build-base git ruby-dev ruby-rdoc tzdata && \
-  apk --quiet --no-cache add \
+  apk add     --quiet --no-cache \
     bind-tools curl drill mariadb-dev mariadb-connector-c jq libressl-dev ruby-irb yajl-tools && \
-  cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
-  echo ${TZ} > /etc/timezone && \
+  cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
+  echo "${TZ}" > /etc/timezone && \
   echo 'gem: --no-document' >> /etc/gemrc && \
   gem install --quiet --no-rdoc --no-ri \
     io-console bundler json && \
   cd /build && \
   if [ "${ICINGA2_GEM_TYPE}" == "local" ] ; then \
-    for g in $(ls -1 /build/*.gem 2> /dev/null) ; do \
-      echo "install local gem '${g}'" && \
-      gem install --quiet --no-rdoc --no-ri ${g} ; \
+    for g in /build/*.gem ; \
+    do \
+      [[ -e ${g} ]] || continue ; \
+      echo "local gem: '${g}'" ; \
+      gem install --no-rdoc --no-ri ${g} ; \
     done ; \
   elif [ "${ICINGA2_GEM_TYPE}" == "stable" ] ; then \
     echo "gem 'icinga2', '~> ${ICINGA2_GEM_VERSION}'" >> Gemfile ; \
@@ -51,17 +55,15 @@ RUN \
 
 COPY rootfs/ /
 
-WORKDIR /
+ENTRYPOINT [ "/init/run.sh" ]
+
+CMD ["icinga-client.rb"]
 
 HEALTHCHECK \
   --interval=5s \
   --timeout=2s \
   --retries=12 \
   CMD ps ax | grep -c icinga-client.rb || exit 1
-
-ENTRYPOINT [ "/init/run.sh" ]
-
-CMD [ "/usr/local/bin/icinga-client.rb" ]
 
 # ---------------------------------------------------------------------------------------
 

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [[ ! -z "${DOCKER_REGISTRY}" ]]
+then
+
+  docker tag \
+    ${DOCKER_NAME_SPACE}/${DOCKER_IMAGE_NAME}:${DOCKER_TAG} \
+    ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_TAG}
+
+  docker push \
+    ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_TAG}
+
+  if [[ ! -z "${RELEASE_VERSION}" ]]
+  then
+    docker tag \
+      ${DOCKER_NAME_SPACE}/${DOCKER_IMAGE_NAME}:${DOCKER_TAG} \
+      ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${RELEASE_VERSION}
+
+    docker push \
+      ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${RELEASE_VERSION}
+  fi
+fi

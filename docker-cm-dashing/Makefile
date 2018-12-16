@@ -1,57 +1,40 @@
 
-include env_make
+export GIT_SHA1          := $(shell git rev-parse --short HEAD)
+export DOCKER_IMAGE_NAME := dashing
+export DOCKER_NAME_SPACE := ${USER}
+export DOCKER_TAG        ?= latest
+export BUILD_DATE        := $(shell date +%Y-%m-%d)
+export BUILD_VERSION     := $(shell date +%y%m)
 
-TYPE := cm-dashing
-IMAGE_NAME := docker-${TYPE}
-
-BUILD_DATE      := $(shell date +%Y-%m-%d)
-BUILD_VERSION   := $(shell date +%y%m)
-
-.PHONY: build clean run shell exec stop
+.PHONY: build shell run exec start stop clean
 
 default: build
 
 build:
-	docker build \
-		--rm \
-		--build-arg BUILD_DATE=$(BUILD_DATE) \
-		--build-arg BUILD_VERSION=$(BUILD_VERSION) \
-		--tag=$(IMAGE_NAME) .
-	@echo Image tag: ${IMAGE_NAME}
-
-run:
-	docker run \
-		--detach \
-		--interactive \
-		--tty \
-		--name=${IMAGE_NAME} \
-		$(IMAGE_NAME)
+	@hooks/build
 
 shell:
-	docker run \
-		--rm \
-		--name $(NAME)-$(INSTANCE) \
-		--interactive \
-		--tty \
-		$(PORTS) \
-		$(VOLUMES) \
-		$(ENV) \
-		$(IMAGE_NAME) \
-		/bin/sh
+	@hooks/shell
+
+run:
+	@hooks/run
 
 exec:
-	docker exec \
-		--interactive \
-		--tty \
-		${IMAGE_NAME} \
-		/bin/sh
+	@hooks/exec
+
+start:
+	@hooks/start
 
 stop:
-	docker kill \
-		${IMAGE_NAME}
+	@hooks/stop
 
 clean:
-	did=$$(docker images -q ${IMAGE_NAME} | uniq); \
-	if [ $$did ] ; then \
-		docker rmi -f "$$did"; \
-	fi
+	@hooks/clean
+
+publish:
+	@hooks/publish
+
+linter:
+	@tests/linter.sh
+
+test: linter
