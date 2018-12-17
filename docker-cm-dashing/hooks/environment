@@ -1,0 +1,12 @@
+
+PORTS="
+  --publish 3030:3030"
+
+VOLUMES=""
+#  --volume foo:bar:ro
+
+ENV="
+  --env ICINGA_HOST="192.168.33.5" \
+  --env ICINGA_API_USER="root" \
+  --env ICINGA_API_PASSWORD="icinga" \
+  --env ICINGAWEB_URL="http://192.168.33.5/icingaweb2""

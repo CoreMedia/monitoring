@@ -7,26 +7,26 @@ ARG BUILD_VERSION
 ENV \
   VERSION="${BUILD_VERSION}" \
   BUILD_DATE="${BUILD_DATE}" \
-  TZ='Europe/Berlin' \
+  TERM="xterm" \
+  TZ="Europe/Berlin" \
   DASHBOARD="coremedia" \
   ICINGA2_GEM_TYPE="stable" \
   ICINGA2_GEM_VERSION="1.0.0"
-
-EXPOSE 3030
 
 # ---------------------------------------------------------------------------------------
 
 COPY build /build
 
+# hadolint ignore=DL3003,DL3017,DL3018,DL3025,SC2086
 RUN \
-  apk update  --quiet --no-cache && \
-  apk upgrade --quiet --no-cache && \
-  apk add --quiet --virtual .build-deps \
+  apk update  --quiet && \
+  apk upgrade --quiet && \
+  apk add     --quiet --no-cache --virtual .build-deps \
     build-base git ruby-dev openssl-dev && \
-  apk add --quiet --no-cache \
+  apk add     --quiet --no-cache \
     jq tzdata yajl-tools && \
-  cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
-  echo ${TZ} > /etc/timezone && \
+  cp "/usr/share/zoneinfo/${TZ}" /etc/localtime && \
+  echo "${TZ}" > /etc/timezone && \
   cd /opt && \
   smashing new ${DASHBOARD} && \
   rm -f /opt/${DASHBOARD}/jobs/twitter* && \
@@ -35,9 +35,11 @@ RUN \
   sed -i "/gem 'twitter'/d" Gemfile && \
   echo "gem 'puma', '~> 3.10'" >> Gemfile && \
   if [ "${ICINGA2_GEM_TYPE}" == "local" ] ; then \
-    for g in $(ls -1 /build/*.gem 2> /dev/null) ; do \
-      echo "install local gem '${g}'" && \
-      gem install --quiet --no-rdoc --no-ri ${g} ; \
+    for g in /build/*.gem ; \
+    do \
+      [[ -e ${g} ]] || continue ; \
+      echo "local gem: '${g}'" ; \
+      gem install --no-rdoc --no-ri ${g} ; \
     done ; \
   elif [ "${ICINGA2_GEM_TYPE}" == "stable" ] ; then \
     echo "gem 'icinga2', '~> ${ICINGA2_GEM_VERSION}'" >> Gemfile ; \
@@ -56,15 +58,17 @@ RUN \
 
 COPY rootfs/ /
 
+EXPOSE 3030
+
 WORKDIR /opt/${DASHBOARD}
+
+CMD ["/init/run.sh"]
 
 HEALTHCHECK \
   --interval=5s \
   --timeout=2s \
   --retries=12 \
   CMD curl --silent --fail http://localhost:3030/dashing/${DASHBOARD} || exit 1
-
-CMD [ "/init/run.sh" ]
 
 # ---------------------------------------------------------------------------------------
 
