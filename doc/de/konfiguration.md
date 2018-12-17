@@ -10,10 +10,7 @@ cd ~/cm-monitoring-toolbox/monitoring/docker-cm-data/rootfs/data/etc/
 ```
 
  - `cm-application.yaml`
- - `cm-monitoring.yaml`
  - `cm-service.yaml`
- - `grafana_config.yaml`
- - `cm-icinga2.yaml`
 
 
 ## Dateien

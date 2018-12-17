@@ -15,14 +15,13 @@ Alle im weiteren Verlauf erwähnten Meßpunkte werden durch eine *Service-Discov
 
 Die Monitoring-Toolbox lässt sich über eine API manuell nutzen oder in einer CI Umgebung integrieren.
 
-
 1. [Installation](./installation.md)
 2. [Konfiguration](./konfiguration.md)
-3. [API](./api.md)
+3. [API](./30-api.md)
 4. [JMX](./jmx.md)
 5. [Bereitschaft](./bereitschaft.md)
-6. [Service Discovery](./service-discovery.md)
-7. [Screenshots](./screenshots.md)
+6. [Service Discovery](./20-service-discovery.md)
+7. [Screenshots](./90-screenshots.md)
 
 
 ## CoreMedia Applikationen
@@ -42,15 +41,18 @@ Bei CoreMedia Applikationen lassen sich folgende Systmparameter überwachen:
   - Auslastung der eCommerce Caches
   - Gültigkeit von SSL Zertifikaten und deren Ablaufdatum
 
+
 ## Datenbanken
 
 Sollten die Ports von MySQL und MongoDB erreichbar sein erhält man zusätzlich die Daten dieser Services.
+
 
 ## Betriebssystemdaten
 
 Daten der Betriebssystemes können durch die Nutzung des `node_exporters` ausgelesen werden.
 
 Dazu muß der entsprechende Service [installiert und gestartet](./de/node_exporter.md) werden.
+
 
 ## Webserver
 
