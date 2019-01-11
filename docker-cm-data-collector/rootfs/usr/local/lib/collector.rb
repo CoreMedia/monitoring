@@ -161,7 +161,7 @@ module DataCollector
       #m = ExternalClients::MySQL.new( settings )
       m = ExternalClients::MySQL::Instance.new( settings )
 
-      logger.debug(m.inspect)
+#       logger.debug(m.inspect)
 
       if( m.client.nil? )
 
@@ -329,10 +329,19 @@ module DataCollector
         JSON.parse( JSON.generate( status: 500 ) )
       else
 
-        mod_status      = ExternalClients::ApacheModStatus.new( host: host, port: port )
-        mod_status_data = mod_status.tick
+        begin
+          m    = ExternalClients::ApacheModStatus::Instance.new( host: host, port: port )
+          return { status: m.get() }
 
-        return { status: mod_status_data }
+        rescue => error
+          logger.error("error: #{error} (file #{__FILE__} :: line #{__LINE__})")
+          return JSON.parse( JSON.generate( status: 500, message: error.to_s ) )
+        end
+
+        #mod_status      = ExternalClients::ApacheModStatus.new( host: host, port: port )
+        #mod_status_data = mod_status.tick
+        #
+        #return { status: mod_status_data }
       end
     end
 
