@@ -1,5 +1,5 @@
 
-FROM bodsch/docker-algernon:1.11.0
+FROM bodsch/docker-algernon:1.12.1
 
 ARG BUILD_DATE
 ARG BUILD_VERSION

@@ -48,7 +48,7 @@ RUN \
 
 # ---------------------------------------------------------------------------------------
 
-FROM bodsch/docker-icinga2:2.10.1-master
+FROM bodsch/docker-icinga2:2.10.2-master
 
 ARG BUILD_DATE
 ARG BUILD_VERSION
