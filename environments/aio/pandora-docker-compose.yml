@@ -41,7 +41,7 @@ services:
 
   jolokia:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-jolokia:1810
+    image: moebius-registry.coremedia.vm/docker-cm-jolokia:1901
     container_name: jolokia
     hostname: jolokia
     networks:
@@ -71,7 +71,7 @@ services:
 
   nginx:
     restart: always
-    image: bodsch/docker-nginx:1.14.0
+    image: bodsch/docker-nginx:1.14.2
     container_name: nginx
     hostname: nginx
     ports:
@@ -98,7 +98,7 @@ services:
 
   carbon:
     restart: always
-    image: bodsch/docker-go-carbon:0.12.0
+    image: bodsch/docker-go-carbon:0.13.0
     container_name: carbon
     hostname: carbon
     ports:
@@ -111,7 +111,7 @@ services:
 
   graphite:
     restart: always
-    image: bodsch/docker-graphite:1.1.4
+    image: bodsch/docker-graphite:1.1.5
     container_name: graphite
     hostname: graphite
     environment:
@@ -125,7 +125,7 @@ services:
 
   grafana:
     restart: always
-    image: bodsch/docker-grafana:5.2.4
+    image: bodsch/docker-grafana:5.4.3
     container_name: grafana
     hostname: grafana
     environment:
@@ -160,7 +160,7 @@ services:
 
   cm-icinga2-master:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-icinga2:1810
+    image: moebius-registry.coremedia.vm/docker-cm-icinga2:1901
     container_name: cm-icinga2-master
     hostname: cm-icinga2-master
     depends_on:
@@ -201,7 +201,7 @@ services:
 
   icingaweb2:
     restart: always
-    image: bodsch/docker-icingaweb2:2.6.1
+    image: bodsch/docker-icingaweb2:2.6.2
     container_name: icingaweb2
     hostname: icingaweb2
     environment:
@@ -236,7 +236,7 @@ services:
 
   documentation:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-documentation:1810
+    image: moebius-registry.coremedia.vm/docker-documentation:1901
     container_name: documentation
     hostname: documentation
     ports:
@@ -246,7 +246,7 @@ services:
 
   cm-dashing:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-dashing:1810
+    image: moebius-registry.coremedia.vm/docker-cm-dashing:1901
     container_name: cm-dashing
     hostname: cm-dashing
     environment:
@@ -273,7 +273,7 @@ services:
   #
   cm-rest-service:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-rest-service:1810
+    image: moebius-registry.coremedia.vm/docker-cm-rest-service:1901
     container_name: cm-rest-service
     hostname: cm-rest-service
     environment:
@@ -297,7 +297,7 @@ services:
   # use MQ to process data
   cm-service-discovery:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-service-discovery:1810
+    image: moebius-registry.coremedia.vm/docker-cm-service-discovery:1901
     container_name: cm-service-discover
     hostname: cm-service-discover
     environment:
@@ -322,7 +322,7 @@ services:
   # use MQ to process data
   cm-data-collector:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-data-collector:1810
+    image: moebius-registry.coremedia.vm/docker-cm-data-collector:1901
     container_name: cm-data-collector
     hostname: cm-data-collector
     environment:
@@ -347,7 +347,7 @@ services:
   # use MQ to process data
   cm-carbon-client:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-carbon-client:1810
+    image: moebius-registry.coremedia.vm/docker-cm-carbon-client:1901
     container_name: cm-carbon-client
     hostname: cm-carbon-client
     environment:
@@ -366,7 +366,7 @@ services:
   # use MQ to process data
   cm-grafana-client:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-grafana-client:1810
+    image: moebius-registry.coremedia.vm/docker-cm-grafana-client:1901
     container_name: cm-grafana-client
     hostname: cm-grafana-client
     environment:
@@ -390,7 +390,7 @@ services:
   # use MQ to process data
   cm-icinga-client:
     restart: always
-    image: moebius-registry.coremedia.vm/docker-cm-icinga-client:1810
+    image: moebius-registry.coremedia.vm/docker-cm-icinga-client:1901
     container_name: cm-icinga-client
     hostname: cm-icinga-client
     environment:

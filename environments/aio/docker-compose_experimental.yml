@@ -31,12 +31,12 @@ services:
 
   database:
     restart: always
-    image: bodsch/docker-mysql
+    image: bodsch/docker-mariadb:10.2.19
     container_name: database
     hostname: database
     environment:
-      MYSQL_SYSTEM_USER: root
-      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+      MARIADB_SYSTEM_USER: root
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - database:/srv
