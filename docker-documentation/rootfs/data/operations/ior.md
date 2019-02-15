@@ -21,7 +21,7 @@ Die IOR wird von Content-Servern zur Verfügung gestellt und kann über HTTP abg
 
  ----
 
-Online-Tool zum parsen einer IOR: [ILU IOR Parser](http://www2.parc.com/istl/projects/ILU/parseIOR/)
+Online-Tool zum parsen einer IOR: [ILU IOR Parser](https://ior.jakubchmura.pl/)
 
 Die CoreMedia Tools bieten ebenfalls einen IOR Parser:
 ```bash
